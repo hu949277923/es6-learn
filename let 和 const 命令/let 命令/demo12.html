@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script>
+        // 不允许重复声明 
+        
+        // let不允许在相同作用域内，重复声明同一个变量。
+
+        // demo1 
+        // function foo () {
+        //     let a = 10;
+        //     var a = 1;
+        // }
+        // foo() //  Uncaught SyntaxError: Identifier 'a' has already been declared
+
+
+        // demo2
+        // function bar () {
+        //     let a = 10;
+        //     let a = 1;
+        // }
+        // bar() //  Uncaught SyntaxError: Identifier 'a' has already been declared
+
+        // demo3
+        // function func (arg) {
+        //     let arg;
+        // }
+        // func(1) // Uncaught SyntaxError: Identifier 'arg' has already been declared
+
+        // demo4
+        // function func2 (arg) {
+        //     console.log(arg) // 1
+        //     {
+        //         let arg;
+        //         console.log(arg) // undefined
+        //         return arg
+        //     }
+        //     console.log(arg) // 1
+        // }
+        // console.log(func2(1)) // undefined
+
+        // demo5
+        function func3 (arg) {
+            console.log(arg) // 1
+            {
+                let arg;
+                console.log(arg) // undefined
+            }
+            console.log(arg) // 1
+            return arg
+        }
+        console.log(func3(1)) // 1
+    </script>
+</head>
+<body>
+    
+</body>
+</html>

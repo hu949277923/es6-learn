@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "lint": "eslint index.js",
+    "test": "mocha --ui qunit --compilers js:babel-core/register" // Mocha 则是一个测试框架，如果需要执行使用 ES6 语法的测试脚本，可以修改package.json的scripts.test。
   },
   "repository": {
     "type": "git",
@@ -18,5 +19,9 @@
   "bugs": {
     "url": "https://github.com/hu949277923/es6-learn/issues"
   },
-  "homepage": "https://github.com/hu949277923/es6-learn#readme"
+  "homepage": "https://github.com/hu949277923/es6-learn#readme",
+  "devDependencies": {
+    "babel-eslint": "^8.0.0",
+    "eslint": "^4.7.2"
+  }
 }

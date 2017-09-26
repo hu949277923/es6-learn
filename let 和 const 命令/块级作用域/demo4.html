@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script>
+        // do表达式  (提案)
+        // 使得块级作用域可以变为表达式，也就是说可以返回值，办法就是在块级作用域之前加上do，使它变为do表达式。
+        function f() {
+            return 1;
+        }
+        let x = do {
+            let t = f();
+            t * t + 1;
+        };
+        console.log(x);
+    </script>
+</head>
+<body>
+    
+</body>
+</html>

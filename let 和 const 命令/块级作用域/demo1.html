@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script>
+        // 为什么需要块级作用域？
+        // demo1
+        var tmp = new Date();
+
+        function f() {
+            console.log(tmp); // undefined
+            if (true) {
+                var tmp = 'hello world';
+            }
+        }
+
+        f(); // undefined
+        console.log(tmp) // Mon Sep 25 2017 16:24:22 GMT+0800 (中国标准时间)
+
+
+        // demo2 
+        var s = 'hello';
+
+        for (var i = 0; i < s.length; i++) {
+        console.log(s[i]);
+        }
+
+        console.log(i); // 5
+    </script>
+</head>
+<body>
+    
+</body>
+</html>

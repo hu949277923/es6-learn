@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script>
+        // 不存在变量提升
+        // let 
+        // var 
+        console.log(foo); // undefined
+        var foo = 2;
+        // let 
+        console.log(bar); // Uncaught ReferenceError: bar is not defined
+        let bar = 10; 
+    </script>
+</head>
+<body>
+    
+</body>
+</html>

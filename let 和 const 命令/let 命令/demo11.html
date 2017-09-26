@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script>
+        // demo1 不报错
+        // var x = x;
+        // console.log(x); // undefined
+        
+        // demo2 // 报错
+        // let x = x;
+        // console.log(x);// ReferenceError: x is not defined
+        // 上面代码报错，也是因为暂时性死区。使用let声明变量时，只要变量在还没有声明完成前使用，就会报错。上面这行就属于这个情况，在变量x的声明语句还没有执行完成前，就去取x的值，导致报错”x 未定义“。
+        // demo3
+        var x = x;
+        console.log(x);
+        let x = x;
+        console.log(x); // Uncaught SyntaxError: Identifier 'x' has already been declared
+    </script>
+</head>
+<body>
+    
+</body>
+</html>

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script>
+        // 块级作用域与函数声明
+
+        //  ES5 规定，函数只能在顶层作用域和函数作用域之中声明，不能在块级作用域声明。
+        //  但是，浏览器没有遵守这个规定，为了兼容以前的旧代码，还是支持在块级作用域之中声明函数，因此上面两种情况实际都能运行，不会报错。
+        // ES6 引入了块级作用域，明确允许在块级作用域之中声明函数。ES6 规定，块级作用域之中，函数声明语句的行为类似于let，在块级作用域之外不可引用。
+
+        // demo1
+        // function f() { console.log('I am outside!'); }
+        
+        // (function () {
+        //   if (false) {
+        //     // 重复声明一次函数f
+        //     function f() { console.log('I am inside!'); }
+        //   }
+        //   f();
+        // }());
+        // 仅支持es5的浏览器 为es5浏览器 支持es6语法的浏览器为es6浏览器
+        // 在 ES5浏览器 中运行，会得到“I am inside!”，因为在if内声明的函数f会被提升到函数头部
+        // 在 ES5浏览器 中运行, 会报错：Uncaught TypeError: f is not a function
+
+        // 上面代码实际运行
+
+        // function f() { console.log('I am outside!'); }
+        // (function () {
+        //     var f = undefined;
+        //     if (false) {
+        //         function f() { console.log('I am inside!'); }
+        //     }
+
+        //     f(); // 会报错：Uncaught TypeError: f is not a function
+        // }());
+
+        // 考虑到环境导致的行为差异太大，应该避免在块级作用域内声明函数。如果确实需要，也应该写成函数表达式，而不是函数声明语句。如下：
+        // demo2
+        // 函数声明语句
+        // {
+        //     let a = 'hello world';
+        //     function f () {
+        //         return a;
+        //     }
+        // }
+        // // 函数表达式
+        // {
+        //     let a = 'hello world';
+        //     let f = function () {
+        //         return a;
+        //     }
+        // }
+
+        // 另外，还有一个需要注意的地方。ES6 的块级作用域允许声明函数的规则，只在使用大括号的情况下成立，如果没有使用大括号，就会报错。
+        // 不报错
+        'use strict';
+        // if (true) {
+        //     function f() {}
+        // }
+
+        // 报错  In strict mode code, functions can only be declared at top level or inside a block.(在严格模式代码中，函数只能在顶层或块内声明。)
+        'use strict';
+        if (true)
+            function f() {}
+
+    </script>
+</head>
+<body>
+    
+</body>
+</html>

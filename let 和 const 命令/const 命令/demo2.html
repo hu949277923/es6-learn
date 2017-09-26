@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script>
+        // 本质
+        // const实际上保证的，并不是变量的值不得改动，而是变量指向的那个内存地址不得改动。对于简单类型的数据（数值、字符串、布尔值），值就保存在变量指向的那个内存地址，因此等同于常量。但对于复合类型的数据（主要是对象和数组），变量指向的内存地址，保存的只是一个指针，const只能保证这个指针是固定的，至于它指向的数据结构是不是可变的，就完全不能控制了。因此，将一个对象声明为常量必须非常小心。
+        // demo1
+        // const foo = {};
+
+        // // 为 foo 添加一个属性，可以成功
+        // foo.prop = 123;
+        // console.log(foo.prop) // 123
+
+        // // 将 foo 指向另一个对象，就会报错
+        // foo = {}; // chrome: Assignment to constant variable
+        //           // firefox: TypeError: invalid assignment to const `foo'
+        //           // ie11 : SCRIPT1055: const 赋值 
+        
+
+        // demo2
+        // const a = [];
+        // a.push('Hello'); // 可执行
+        // a.length = 0;    // 可执行
+        // a = ['Dave'];    // 报错
+
+        // demo3
+        
+        const foo = Object.freeze({
+            prop: 1,
+            obj: {}
+        });
+        foo.prop = 123;
+        // 常规模式时，下面一行不起作用；
+        // 严格模式时，该行会报错
+
+
+        // freeze 将对象冻结,冻结对象无法对冻结对象进行添加、更改、删除等,但对象内嵌套的对象是可以进行操作的如：demo4
+        foo.obj.b = 2
+        console.log(foo)
+        // 如何将对象内的对象进行冻结，判断object中是否有object,递归循环进行处理，如下：demo5
+        // 1、定义深层冻结对象的方法
+        var constantize = (obj) => {
+            Object.freeze(obj);
+            Object.keys(obj).forEach( (key, i) => {
+                if ( typeof obj[key] === 'object' ) {
+                constantize( obj[key] );
+                }
+            });
+        };
+        // 2、将 bar进行冻结后，再次给bar.obj中添加c
+        const bar = {
+            obj: {}
+        }
+        constantize(bar);
+        bar.obj.c = 123;
+        console.log(JSON.stringify(bar)); // {"obj":{}}
+    </script>
+</head>
+<body>
+    
+</body>
+</html>
