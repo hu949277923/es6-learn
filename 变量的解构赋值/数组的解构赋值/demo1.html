@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script>
+        // 数组的解构赋值
+        // 基本用法
+        // ES6 允许按照一定模式，从数组和对象中提取值，对变量进行赋值，这被称为解构（Destructuring）。
+        // demo1
+        let [a, b, c] = [1, 2, 3];
+        console.log(a,b,c) // 1 2 3
+        // demo1 这种写法属于“模式匹配”
+
+        // demo2
+        let [foo,[[bar],baz]] = [1,[[2],3]]
+        console.log(foo, bar, baz); // 1 2 3
+
+        // demo3
+        let [, , thrid] = [1, 2, 3];
+        console.log(thrid); // 3
+
+        // demo4
+        let [x, , y] = [1, 2, 3];
+        console.log(x,y) // 1 3
+
+        // demo5
+        let [head, ...tail] = [1,2,3,4,5];
+        console.log(head, tail);  
+
+        // demo6
+        let [x1, y1, ...z] = [1];
+        console.log(x1,y1,z); // 1 undefined []
+
+        // demo7
+        // 等号左边的模式，只匹配一部分的等号右边的数组。这种情况下，解构依然可以成功。
+        let [x2, y2] = [1, 2, 3];
+        console.log(x2,y2) // 1 2
+
+        let [a2, [b2], d2] = [1, [2, 3], 4];
+        console.log(a2,b2,d2) // 1 2 4
+
+        // 如果等号的右边不是数组（或者严格地说，不是可遍历的结构，参见《Iterator》一章），那么将会报错。
+        // demo 8
+        // let [x3] = 1;
+        // console.log(x3); // Uncaught SyntaxError: Unexpected end of input
+        // let [x4] = false;
+        // console.log(x4) // Uncaught TypeError: false is not iterable
+        // let [y3] = NaN;
+        // console.log(y3); // Uncaught TypeError: NaN is not iterable
+        // let [y4] = undefined;
+        // console.log(y4); // Uncaught TypeError: undefined is not iterable
+        // let [z3] = null;
+        // console.log(z3); // Uncaught TypeError: null is not iterable
+        // let [z4] = {};
+        // console.log(z4); // Uncaught TypeError: {} is not iterable
+        // 上面的语句都会报错，因为等号右边的值，要么转为对象以后不具备 Iterator 接口（前五个表达式），要么本身就不具备 Iterator 接口（最后一个表达式）。
+
+
+        // Set 结构，也可以使用数组的解构赋值。
+        // demo9
+        let [x5,y5,z5] = new Set([1,2,3]);
+        console.log(x5, z5, y5);
+
+        // demo 10 ???
+        // fibs是一个 Generator 函数（参见《Generator 函数》一章），原生具有 Iterator 接口。解构赋值会依次从这个接口获取值。
+        function* fibs() {
+            let a = 0;
+            let b = 1;
+            while (true) {
+                yield a;
+                [a, b] = [b, a + b];
+            }
+        }
+
+        let [first, second, third, fourth, fifth, sixth] = fibs();
+        console.log(third);
+         // 5
+    </script>
+</head>
+<body>
+    
+</body>
+</html>

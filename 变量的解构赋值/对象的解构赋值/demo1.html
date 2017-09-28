@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script>
+        // 对象的解构赋值
+        // demo1
+        let { foo, bar } = { foo: "aaa", bar: "bbb" };
+        console.log(foo, bar); // aaa bbb
+
+        // demo2
+        let { foo2: baz} = { foo2: "aaa", bar2: "bbb" }
+        console.log(baz); // aaa
+
+        // demo3
+        let obj = { first: 'hello', last: 'world'}
+        let { first: f, last: l} = obj;
+        console.log(f);
+        console.log(l);
+
+        // demo4
+        let obj2 = {
+            p: [
+                'hello',
+                {
+                    y: 'world'
+                }
+            ]
+        }
+        let { p: [x, {y}]} = obj2
+        console.log(x, y);
+
+        // demo5
+        var {x2: y2 = 3} = {};
+        console.log(y2 );
+
+        // demo6
+        //let {foo: {bar}} = {baz: 'baz'};
+        
+
+    </script>
+</head>
+<body>
+    
+</body>
+</html>
