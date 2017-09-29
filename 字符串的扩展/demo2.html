@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script>
+        // codePointAt
+        // demo1
+        var s = "𠮷";
+        console.log(s.length) // 2
+        var s2 = "a"
+        console.log(s2.length) // 1
+        console.log(s.charAt(0)) // �
+        console.log(s.charAt(1)) // �
+        console.log(s.charAt(2)) // 空
+        console.log(s.charCodeAt(0)) // 55362
+        console.log(s.charCodeAt(1)) // 57271
+        let s3 = '𠮷a'
+        console.log(s3.codePointAt(0)); // 134071
+        console.log(s3.codePointAt(1)); // 57271
+        console.log(s3.codePointAt(2)); // 97
+
+        // codePointAt方法返回的是码点的十进制值，如果想要十六进制的值，可以使用toString方法转换一下。
+        // demo2
+        let s4 = '𠮷a';
+
+        console.log(s4.codePointAt(0).toString(16)) // "20bb7"
+        console.log(s4.codePointAt(2).toString(16)) // "61"
+
+        //你可能注意到了，codePointAt方法的参数，仍然是不正确的。比如，上面代码中，字符a在字符串s的正确位置序号应该是1，但是必须向codePointAt方法传入2。解决这个问题的一个办法是使用for...of循环，因为它会正确识别32位的UTF-16字符。
+        // demo3
+        let s5 = '𠮷a';
+        for (let ch of s5) {
+          console.log(ch.codePointAt(0).toString(16)); // 20bb7 61
+        }
+
+        // codePointAt方法是测试一个字符由两个字节还是由四个字节组成的最简单方法。
+        // demo4
+        function is32Bit (c) {
+            return c.codePointAt(0) > 0xFFFF;
+        }
+        console.log(is32Bit('𠮷')) // true
+        console.log(is32Bit('a')) // false
+    </script>
+</head>
+<body>
+    
+</body>
+</html>

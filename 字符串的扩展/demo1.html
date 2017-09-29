@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script>
+        // 字符串的扩展
+        // 字符的 Unicode 表示法
+        // 这种表示法只限于码点在\u0000~\uFFFF之间的字符。超出这个范围的字符，必须用两个双字节的形式表示。
+        // demo1
+        console.log("\u0061");// "a"
+        console.log("\uD842\uDFB7");// 𠮷
+        console.log("\u20BB7");//₻7
+
+        // ES6 对这一点做出了改进，只要将码点放入大括号，就能正确解读该字符。
+        //demo2
+        console.log("\u{20BB7}"); // 𠮷
+        console.log("\u{41}\u{42}\u{43}"); // ABC
+
+        let hello = 123;
+        console.log(hell\u{6f}) // 123
+
+        console.log('\u{1F680}') // 🚀
+        console.log('\uD83D\uDE80') // 🚀
+
+        // JavaScript 共有6种方法可以表示一个字符。
+        // demo3
+        '\z' === 'z'  // true
+        '\172' === 'z' // true
+        '\x7A' === 'z' // true
+        '\u007A' === 'z' // true
+        '\u{7A}' === 'z' // true
+    </script>
+</head>
+<body>
+    
+</body>
+</html>

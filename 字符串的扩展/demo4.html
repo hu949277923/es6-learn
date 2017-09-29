@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script>
+        // 字符串的遍历器接口
+        // 字符串text只有一个字符，但是for循环会认为它包含两个字符（都不可打印），而for...of循环会正确识别出这一个字符。
+
+
+        let text = String.fromCodePoint(0x20BB7);
+
+        for (let i = 0; i < text.length; i++) {
+            console.log(text[i]);
+        }
+        // "�"
+        // "�"
+
+        for (let i of text) {
+            console.log(i);
+        }
+        // "𠮷"
+    </script>
+</head>
+<body>
+    
+</body>
+</html>

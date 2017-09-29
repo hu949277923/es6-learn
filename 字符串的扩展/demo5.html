@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script>
+        // at
+        //es5
+        console.log('abc'.charAt(0)) // "a"
+        console.log('𠮷'.charAt(0)) // '� '
+
+        // 目前，有一个提案，提出字符串实例的at方法，可以识别 Unicode 编号大于0xFFFF的字符，返回正确的字符。
+        'abc'.at(0) // "a"
+        '𠮷'.at(0) // "𠮷"  
+    </script>
+</head>
+<body>
+    
+</body>
+</html>
