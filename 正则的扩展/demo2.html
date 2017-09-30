@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script>
+        // 字符串的正则方法 
+        // match() 方法可在字符串内检索指定的值，或找到一个或多个正则表达式的匹配。
+        let str="Hello world!"
+        console.log(str.match("world")) // [0:"world","index":6,"input":"hello world!",length:1]
+        console.log(JSON.stringify(str.match("world"))) // ["world"]
+        console.log(str.match("world1")) // null
+        // replace() 方法用于在字符串中用一些字符替换另一些字符，或替换一个与正则表达式匹配的子串。
+        console.log(str.replace(' ','---')) // Hello---world!
+        // search()方法用于检索字符串中指定的子字符串，或检索与正则表达式相匹配的子字符串。
+        console.log(str.search('H')); // 0
+        // split() 方法用于把一个字符串分割成字符串数组。
+        console.log(JSON.stringify(str.split(' '))) // ["Hello","world!"]
+    </script>
+</head>
+<body>
+    
+</body>
+</html>

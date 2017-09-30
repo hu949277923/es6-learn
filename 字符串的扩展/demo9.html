@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    
+</head>
+<body>
+    <div id="test">
+
+    </div>
+    <script> 
+        // padStart()，padEnd() ES2017 引入了字符串补全长度的功能。如果某个字符串不够指定长度，会在头部或尾部补全。padStart()用于头部补全，padEnd()用于尾部补全。
+        // demo1
+        let test = document.getElementById("test");
+        let str = `
+        <ul>
+            <li>aaaa</li>
+            <li>aaaa</li>
+        </ul>
+        `.trim()
+        test.innerHTML = str;
+    </script>
+</body>
+</html>

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    
+</head>
+<body>
+    <div id="test">
+
+    </div>
+    <script> 
+        // 模板字符串
+        // demo1
+        const tmpl = addrs => `
+        <table>
+        ${addrs.map(addr => 
+            `<tr><td>${addr.first}</td></tr>
+            <tr><td>${addr.last}</td></tr>
+            `
+        ).join('')}
+        </table>
+        `
+        const data = [
+            { first: '<Jane>', last: 'Bond' },
+            { first: 'Lars', last: '<Croft>' },
+        ];
+        console.log(tmpl(data))
+
+        // demo2
+        let str2 = 'return ' + '`hello ${name}!`'
+        let func2 = new Function('name', str);
+        console.log(func2('back'))
+
+        
+    </script>
+</body>
+</html>

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script> 
+        // padStart()，padEnd() ES2017 引入了字符串补全长度的功能。如果某个字符串不够指定长度，会在头部或尾部补全。padStart()用于头部补全，padEnd()用于尾部补全。
+        // demo1
+        console.log('x'.padStart(5, 'ab')); // ababx
+        console.log('x'.padEnd(4,'ac')); // xaca
+
+        // 如果原字符串的长度，等于或大于指定的最小长度，则返回原字符串。
+        // demo2
+        console.log('xxxx'.padStart(2,'ab')); // xxxx
+
+        // 如果省略第二个参数，默认使用空格补全长度。
+        // demo3
+        console.log('xxx'.padStart(10)) //        xxx
+
+        // 另一个用途是提示字符串格式。
+        // demo4
+        console.log('12'.padStart(8,'YY-MM-DD')) // YY-MM-12
+        console.log('09-12'.padStart(8,'YY-MM-DD')) // YY-09-12
+    </script>
+</head>
+<body>
+    
+</body>
+</html>

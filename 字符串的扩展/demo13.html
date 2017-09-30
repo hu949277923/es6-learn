@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    
+</head>
+<body>
+    <div id="test">
+
+    </div>
+    <script> 
+        // String.raw
+        // String.raw方法，往往用来充当模板字符串的处理函数，返回一个斜杠都被转义（即斜杠前面再加一个斜杠）的字符串，对应于替换变量后的模板字符串。
+        console.log(String.raw`Hi\n${2+3}!`); // Hi\n5!
+        console.log(String.raw`Hi\u000A!`); // Hi\u000A!
+        console.log(String.raw`Hi\\n`)// "Hi\\n"
+
+        // for (let i = 0; i < 10; i++) {
+        //     console.log(1)
+        // }
+        // console.log(i)
+        String.raw = function (strings, ...values) {
+            let output = "";
+            for (var index = 0; index < values.length; index++) {
+                output += strings.raw[index] + values[index];
+            }
+
+            output += strings.raw[index]
+            return output;
+        }
+        console.log(String.raw({ raw: 'test' }, 0, 1, 2)); // t0e1s2t
+    </script>
+</body>
+</html>
