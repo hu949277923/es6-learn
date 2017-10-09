@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script>
+        // flags 属性
+        // ES6 为正则表达式新增了flags属性，会返回正则表达式的修饰符。
+        var r = /hello\d/y;
+        console.log(r.flags) // y
+
+        // ES5 的 source 属性 返回正则表达式的正文
+        console.log(r.source) // hello\d
+        
+    </script>
+</head>
+<body>
+    
+</body>
+</html>

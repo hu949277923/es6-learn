@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script>
+        // 具名组匹配
+        // demo1
+        const RE_DATE = /(\d{4})-(\d{2})-(\d{2})/;
+        const matchObj = RE_DATE.exec('1999-12-31');
+        console.log('-------matchObj----------', matchObj)
+        
+        const year = matchObj[1]; // 1999
+        console.log('-------year----------', year)
+        const month = matchObj[2]; // 12
+        console.log('-------month----------', month)
+        const day = matchObj[3]; // 31
+        console.log('-------day----------', day)
+        
+        // 允许为每一个组匹配指定一个名字，既便于阅读代码，又便于引用。(提案)
+        // demo2
+        // const RE_DATE2 = /(?<year>\d{4})-(?<month>\d{2})-(?<day>\d{2})/;
+
+        // const matchObj2 = RE_DATE2.exec('1999-12-31');
+        // const year2 = matchObj2.groups.year; // 1999
+        // const month2 = matchObj2.groups.month; // 12
+        // const day2 = matchObj2.groups.day; // 31
+        // console.log('year2',year2)
+        // console.log('month2',month2)
+        // console.log('day2',day2)
+
+        // 解构赋值和替换
+        // demo3
+        
+    </script>
+</head>
+<body>
+    
+</body>
+</html>

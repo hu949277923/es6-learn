@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script>
+        // y 修饰符(从头部开始)
+        // y修饰符的作用与g修饰符类似，也是全局匹配，后一次匹配都从上一次匹配成功的下一个位置开始。不同之处在于，g修饰符只要剩余位置中存在匹配就可，而y修饰符确保匹配必须从剩余的第一个位置开始，这也就是“粘连”的涵义。
+        // demo1
+        var s = 'aaa_aa_a';
+        var r1 = /a+/g;
+        var r2 = /a+/y;
+        console.log(r1.exec(s));//  ["aaa"]
+        console.log(r2.exec(s));//  ["aaa"]
+
+        console.log(r1.exec(s));//  ["aa"]
+        console.log(r2.exec(s));//  null
+        
+
+        // 如果改一下正则表达式，保证每次都能头部匹配，y修饰符就会返回结果了。
+        // demo2
+        var s1 = 'aaa_aa_a';
+        var r1 = /a+_/g;
+        var r2 = /a+_/y;
+        console.log(r1.exec(s1)); // ["aaa_"]
+        console.log(r2.exec(s1)); // ["aaa_"]
+        console.log(r1.exec(s1)); // ["aa_"]
+        console.log(r2.exec(s1)); // ["aa_"]
+
+        // demo3
+        const REGEX = /a/g;
+
+        // 指定从2号位置（y）开始匹配
+        REGEX.lastIndex = 2;
+        // 匹配成功
+        const match = REGEX.exec('xaya');
+        // 在3号位置匹配成功
+        console.log(match.index) // 3
+        console.log(REGEX.lastIndex) // 4
+        console.log(REGEX.exec('xaxa')) // null
+
+        console.log('x##'.split(/#/y)); // ["x##"]
+        console.log('##x'.split(/#/y)); // ["", "", "x"]
+        console.log('#x#'.split(/#/y));  // ["", "x#"]
+        console.log('##'.split(/#/y)); // ["", ""];
+
+        // 单单一个y修饰符对match方法，只能返回第一个匹配，必须与g修饰符联用，才能返回所有匹配。
+        // demo4
+        const reg = /a/gy;
+        console.log('aaxa'.replace(reg,'-')) // --xa
+
+        console.log('a1a2a3'.match(/a\d/y)) // ["a1"]
+        console.log('a1a2a3'.match(/a\d/gy)) // ["a1", "a2", "a3"]
+
+        // demo5
+        const TOKEN_Y = /\s*(\+|[0-9]+)\s*/y;
+        const TOKEN_G  = /\s*(\+|[0-9]+)\s*/g;
+
+        console.log('-----------demo5-----------')
+        // console.log(tokenize(TOKEN_Y, '3 + 4'))
+        // [ '3', '+', '4' ]
+        console.log(tokenize(TOKEN_G, '3 + 4'))
+        // [ '3', '+', '4' ]
+
+        function tokenize(TOKEN_REGEX, str) {
+            let result = [];
+            let match;
+            while (match = TOKEN_REGEX.exec(str)) {
+                console.log(match); 
+                console.log(match[1]);  
+                result.push(match[1]);
+            }
+            return result;
+        }
+    </script>
+</head>
+<body>
+    
+</body>
+</html>
