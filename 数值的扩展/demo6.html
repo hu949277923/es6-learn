@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script>
+        // 6 安全整数和 Number.isSafeInteger()
+        // JavaScript 能够准确表示的整数范围在-2^53到2^53之间（不含两个端点），超过这个范围，无法精确表示这个值。
+        // demo1
+        console.log(Math.pow(2, 53)) // 9007199254740992
+        console.log(9007199254740993 === Math.pow(2, 53)) // true
+        console.log(Math.pow(2, 53) === Math.pow(2, 53) + 1); // true
+
+        console.log(Number.MAX_SAFE_INTEGER) // 9007199254740991
+        console.log(Number.MIN_SAFE_INTEGER) // -9007199254740991
+
+        // Number.isSafeInteger()则是用来判断一个整数是否落在这个范围之内。
+        // demo2
+        console.log(Number.isSafeInteger('a')) // false
+        console.log(Number.isSafeInteger(null)) // false
+        console.log(Number.isSafeInteger(NaN)) // false
+        console.log(Number.isSafeInteger(Infinity)) // false
+        console.log(Number.isSafeInteger(-Infinity)) // false
+
+        console.log(Number.isSafeInteger(3)) // true
+        console.log(Number.isSafeInteger(1.2)) // false
+        console.log(Number.isSafeInteger(9007199254740990)) // true
+        console.log(Number.isSafeInteger(9007199254740992)) // false
+
+        console.log(Number.isSafeInteger(Number.MIN_SAFE_INTEGER - 1)) // false
+        console.log(Number.isSafeInteger(Number.MIN_SAFE_INTEGER)) // true
+        console.log(Number.isSafeInteger(Number.MAX_SAFE_INTEGER)) // true
+        console.log(Number.isSafeInteger(Number.MAX_SAFE_INTEGER + 1)) // false
+
+        console.log(Number.isSafeInteger(9007199254740993)) // false
+        
+    </script>
+</head>
+<body>
+    
+</body>
+</html>

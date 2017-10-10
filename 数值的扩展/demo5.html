@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script>
+        // 5 Number.EPSILON
+        // 新增一个极小的常量Number.EPSILON。根据规格，它表示1与大于1的最小浮点数之间的差。
+        console.log(Number.EPSILON); // 2.220446049250313e-16
+        console.log(Math.pow(2, -52)) // 2.220446049250313e-16
+        console.log(Number.EPSILON.toFixed(20)) // 0.00000000000000022204
+
+        console.log(0.1 + 0.2 == 0.3) // false
+
+        // Number.EPSILON的实质是一个可以接受的最小误差范围。
+        function withinErrorMargin (left, right) {
+           return Math.abs(left - right) < Number.EPSILON * Math.pow(2, 2);
+        }
+        console.log(withinErrorMargin(0.1 + 0.2, 0.3)) // true
+    </script>
+</head>
+<body>
+    
+</body>
+</html>

@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script>
+        // 7 Math对象的扩展
+        // Math.trunc() 
+        // demo1
+        console.log(Math.trunc(4.1)) // 4
+        console.log(Math.trunc(4.9)) // 4
+        console.log(Math.trunc(-4.1)) // -4
+        console.log(Math.trunc(-4.9)) // -4
+        console.log(Math.trunc(-0.1234)) // -0
+        // 对于非数值，Math.trunc内部使用Number方法将其先转为数值。
+        console.log(Math.trunc('123.456')) // 123
+        console.log(Math.trunc(true)) //1
+        console.log(Math.trunc(false)) // 0
+        console.log(Math.trunc(null)) // 0
+        // 对于空值和无法截取整数的值，返回NaN。
+        console.log(Math.trunc(NaN));      // NaN
+        console.log(Math.trunc('foo'));    // NaN
+        console.log(Math.trunc());         // NaN
+        console.log(Math.trunc(undefined)) // NaN
+
+        // demo2
+        // Math.sign()  Math.sign方法用来判断一个数到底是正数、负数、还是零。对于非数值，会先将其转换为数值。
+        console.log(Math.sign(-5)) // -1
+        console.log(Math.sign(5)) // +1
+        console.log(Math.sign(0)) // +0
+        console.log(Math.sign(-0)) // -0
+        console.log(Math.sign(NaN)) // NaN
+
+        console.log(Math.sign(''))  // 0
+        console.log(Math.sign(true))  // +1
+        console.log(Math.sign(false))  // 0
+        console.log(Math.sign(null))  // 0
+        console.log(Math.sign('9'))  // +1
+        console.log(Math.sign('foo'))  // NaN
+        console.log(Math.sign())  // NaN
+        console.log(Math.sign(undefined))  // NaN
+
+        // demo3
+        // Math.cbrt() 方法用于计算一个数的立方根。
+        console.log(Math.cbrt(8)) // 2
+        console.log(Math.cbrt(-1)) // -1
+        console.log(Math.cbrt(0))  // 0
+        console.log(Math.cbrt(1))  // 1
+
+        // demo4
+        // Math.clz32() JavaScript的整数使用32位二进制形式表示，Math.clz32方法返回一个数的32位无符号整数形式有多少个前导0。
+        console.log(Math.clz32(0)) // 32
+        console.log(Math.clz32(1)) // 31
+        console.log(Math.clz32(1000)) // 22
+        console.log(Math.clz32(0b01000000000000000000000000000000)) // 1
+        console.log(Math.clz32(0b00100000000000000000000000000000)) // 2
+        // 左移运算符（<<）与Math.clz32方法直接相关。
+        console.log(Math.clz32(1 << 1)) // 30
+        console.log(Math.clz32(1 << 2)) // 29
+        console.log(Math.clz32(1 << 29)) // 2
+
+        // 对于小数，Math.clz32方法只考虑整数部分。
+        console.log(Math.clz32(3.2)) // 30
+        console.log(Math.clz32(3.9)) // 30
+        // 对于空值或其他类型的值，Math.clz32方法会将它们先转为数值，然后再计算。
+        console.log(Math.clz32()) // 32
+        console.log(Math.clz32(NaN)) // 32
+        console.log(Math.clz32(Infinity)) // 32
+        console.log(Math.clz32(null)) // 32
+        console.log(Math.clz32('foo')) // 32
+        console.log(Math.clz32([])) // 32
+        console.log(Math.clz32({})) // 32
+        console.log(Math.clz32(true)) // 31
+
+        console.log('---Math.imul()----')
+        // Math.imul()方法返回两个数以32位带符号整数形式相乘的结果，返回的也是一个32位的带符号整数。
+        // demo5 
+        console.log(Math.imul(2, 4))   // 8
+        console.log(Math.imul(-1, 8))  // -8
+        console.log(Math.imul(-2, -2)) // 4
+
+        console.log('---Math.fround()----')
+        // Math.fround()方法返回一个数的单精度浮点数形式。
+        console.log(Math.fround(0))     // 0
+        console.log(Math.fround(1))     // 1
+        console.log(Math.fround(1.337)) // 1.3370000123977661
+        console.log(Math.fround(1.5))   // 1.5
+        console.log(Math.fround(NaN))   // NaN
+
+        // Math.hypot() 方法返回所有参数的平方和的平方根。
+        console.log('---Math.hypot()----')
+        console.log(Math.hypot(3, 4));        // 5
+        console.log(Math.hypot(3, 4, 5));     // 7.0710678118654755
+        console.log(Math.hypot());            // 0
+        console.log(Math.hypot(NaN));         // NaN
+        console.log(Math.hypot(3, 4, 'foo')); // NaN
+        console.log(Math.hypot(3, 4, '5'));   // 7.0710678118654755
+        console.log(Math.hypot(-3));          // 3
+
+        // 对数方法 
+        // demo6
+        
+    </script>
+</head>
+<body>
+    
+</body>
+</html>

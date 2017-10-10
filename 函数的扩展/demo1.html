@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script>
+        // 函数的扩展
+        // 1 函数参数的默认值 
+
+        // demo1
+        let x = 99;
+        function foo(p = x + 1) {
+            console.log(p);
+        }
+
+        foo() // 100
+
+        x = 100;
+        foo() // 101
+
+        function m1 ({x = 0, y = 0} = {}) {
+            return [x, y]
+        }
+        console.log(m1());
+        console.log(m1({x:1}));
+        
+        function m2 ({x, y} = {x: 0, y: 0}) {
+            return [x, y]
+        }
+        console.log(m2());
+        console.log(m2({x:1}));
+        // 参数默认值的位置
+        // demo2
+        console.log('demo2')
+        function f(x = 1, y) {
+            return [x, y]
+        }
+        console.log(f())
+        console.log(f(2))
+        // console.log(f(, 2)) // Unexpected token ,
+        console.log(f(undefined, 2))
+        
+        function foo(x = 5, y = 6) {
+            console.log(x, y);
+        }
+
+        foo(undefined, null)
+
+        // demo3
+        // 函数的 length 属性
+        // 指定了默认值以后，函数的length属性，将返回没有指定默认值的参数个数。也就是说，指定了默认值后，length属性将失真。
+        // demo3
+        console.log((function(a) {}).length) // 1
+        console.log((function (a = 5) {}).length) // 0
+        console.log((function (a, b, c = 2){}).length) // 2
+
+        // 如果设置了默认值的参数不是尾参数，那么length属性也不再计入后面的参数了。
+        console.log((function(a, b = 5, c){}.length)) // 1
+
+        // 作用域 
+        // 一旦设置了参数的默认值，函数进行声明初始化时，参数会形成一个单独的作用域（context）。等到初始化结束，这个作用域就会消失。这种语法行为，在不设置参数默认值时，是不会出现的。
+        // demo4
+        var x2 = 1;
+        function f(x2, y = x2) {
+            console.log(y);
+        }
+        f(2); // 2
+        // 上面代码中，参数y的默认值等于变量x。调用函数f时，参数形成一个单独的作用域。在这个作用域里面，默认值变量x2指向第一个参数x2，而不是全局变量x2，所以输出是2。
+        
+        let x3 = 1;
+        function f2 (y = x3) {
+            let x3 = 2;
+            console.log(y);
+        }
+        f2(); // 1
+        // 上面代码中，函数f2调用时，参数y = x3形成一个单独的作用域。这个作用域里面，变量x3本身没有定义，所以指向外层的全局变量x3。函数调用时，函数体内部的局部变量x3影响不到默认值变量x。
+
+        // 如果参数的默认值是一个函数，该函数的作用域也遵守这个规则。请看下面的例子。
+
+        let foo2 = 'outer';
+
+        function bar(func = () => foo2) {
+            let foo2 = 'inner';
+            console.log(func());
+        }
+
+        bar(); // outer
+        // 上面代码中，函数bar的参数func的默认值是一个匿名函数，返回值为变量foo。函数参数形成的单独作用域里面，并没有定义变量foo，所以foo指向外层的全局变量foo，因此输出outer。
+
+        var x4 = 1;
+        function foo3(x4, y = function() { x4 = 2; }) {
+            var x4 = 3;
+            y();
+            console.log(x4);
+        }
+        foo3() // 3
+        console.log(x4); // 1
+        // 上面代码中，函数foo3的参数形成一个单独作用域。这个作用域里面，首先声明了变量x4，然后声明了变量y，y的默认值是一个匿名函数。这个匿名函数内部的变量x4，指向同一个作用域的第一个参数x4。函数foo3内部又声明了一个内部变量x4，该变量与第一个参数x由于不是同一个作用域，所以不是同一个变量，因此执行y后，内部变量x4和外部全局变量x的值都没变。
+
+        var x5 = 1;
+        function foo4(x5, y = function() { x5 = 2; }) {
+            x5 = 3;
+            y();
+            console.log(x5);
+        }
+        foo4() // 2
+
+        // 应用
+        function throwIfMissing() {
+          throw new Error('Missing parameter');
+        }
+
+        function foo(mustBeProvided = throwIfMissing()) {
+            return mustBeProvided;
+        }
+
+        console.log(foo()) // Missing parameter
+    </script>
+</head>
+<body>
+    
+</body>
+</html>

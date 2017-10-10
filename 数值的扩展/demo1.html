@@ -5,6 +5,33 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
+    <script>
+        // 数值的扩展
+        // 1 二进制和八进制表示法
+
+        // 二进制 0b111110111
+        // 十进制 503
+        // 二进制转十进制  0b111110111  (1 * 2^0 + 1 * 2^1 + 1 * 2^2 + 0 * 2^3 + 1 * 2^4 + 1 * 2^5 + 1 * 2^6 + 1 * 2^7 + 1 * 2^8) 结果  503
+        // 八进制转十进制 0o767 ( 7 * 8^0 + 6 * 8^1 + 7 * 8^2) 结果 503
+
+        // demo1
+        console.log(0b111110111 === 503)
+        console.log(0o767 === 503)
+
+        // 从 ES5 开始，在严格模式之中，八进制就不再允许使用前缀0表示，ES6 进一步明确，要使用前缀0o表示。
+        // demo2
+        // (function(){
+        //     'use strict'
+        //     console.log(0o11 === 011) // Uncaught SyntaxError: Octal literals are not allowed in strict mode.
+        // })()
+
+        // 将0b和0o前缀的字符串数值转为十进制，要使用Number方法。
+        var tenNum = Number(0o767);
+        console.log(tenNum); // 503
+
+
+       
+    </script>
 </head>
 <body>
     
