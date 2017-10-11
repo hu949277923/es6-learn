@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script>
+        // 3 严格模式
+
+        // 从 ES5 开始，函数内部可以设定为严格模式。
+        // demo1
+        function doSomething(a, b) {
+            //code...
+        }
+
+        // ES2016 做了一点修改，规定只要函数参数使用了默认值、解构赋值、或者扩展运算符，那么函数内部就不能显式设定为严格模式，否则会报错。
+        // demo2
+        //  (使用默认值)
+        // function doSomething2(a, b = 1) {
+        //     'use strict'; //  Illegal 'use strict' directive in function with non-simple parameter list
+        //     // code...
+        // }
+
+        // (使用解构赋值)
+        // const doSomething3 = function({a, b}) {
+        //     'use strict'; //  Illegal 'use strict' directive in function with non-simple parameter list
+        //     // code
+        // }
+
+        // (使用扩展运算符)
+        // const doSomething4 = (...a) => {
+        //     'use strict'; //  Illegal 'use strict' directive in function with non-simple parameter list
+        // }
+
+        // const obj = {
+        //     // 报错
+        //     doSomething5({a, b}) {
+        //         'use strict'; //  Illegal 'use strict' directive in function with non-simple parameter list
+        //         // code
+        //     }
+        // };
+
+        // 两种方法可以规避这种限制
+
+        // demo3
+        // 
+        // 1>设定全局性的严格模式，这是合法的。
+        'use strict';
+
+        function doSomething7(a, b = a) {
+            // code
+        }
+        // 2>把函数包在一个无参数的立即执行函数里面。
+        const doSomething8 = (function () {
+            'use strict';
+            return function(value = 42) {
+                return value;
+            };
+        }());
+    </script>
+</head>
+<body>
+    
+</body>
+</html>

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script>
+        // 5 new.target
+        // 以前，一般在函数内部通过instanceof运算符判断，函数到底是哪一种方式调用。
+        // demo1
+        function fn() {
+            if (this instanceof fn) { // 通过 new 命令调用
+                this.foo = 'hello';
+            } else {
+                throw new Error('该函数只能通过 new 调用');
+            }
+        }   
+        // fn() // 报错     
+        // fn.call(new fn()) // 不报错
+        new fn() // 不报错
+
+        // ES6 引入了new.target属性。如果通过new调用，new.target将指向当前正在执行的函数，其他情况都指向undefined。
+        // demo2
+        function fn2() {
+            if (new.target == fn2) {
+                this.foo = 'hello'
+            } else {
+                throw new Error('该函数只能通过 new 调用');
+            }
+        }
+        // fn2() // 报错
+        // fn2.call(new fn2()) // 报错
+        new fn2() // 不报错
+
+        // 注意，new.target只能在函数体内部使用，如果在函数体外部使用就会报错。
+        // demo3
+        // if (new.target == fn2) { // new.target expression is not allowed here
+        //     console.log('ok') 
+        // }
+    </script>
+</head>
+<body>
+    
+</body>
+</html>

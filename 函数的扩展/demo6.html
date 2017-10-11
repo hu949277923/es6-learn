@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script>
+        // 6 箭头函数
+        // ES6 允许使用“箭头”（=>）定义函数。
+        // demo1
+        var f = v => v;
+        // 上面的箭头函数等同于：
+        // var f = function(v) {
+        //     return v;
+        // }
+
+        // demo2
+        // var f = () => 5; //不需要参数
+        // //=
+        // var f = function() {
+        //     return 5
+        // };
+
+        // // 需要多个参数
+        // var sum = (sum1, sum2) => sum1 + sum2;
+        // // =
+        // var sum = function(sum1, sum2) {
+        //     return sum1 + sum2
+        // };
+
+        // demo3
+        // // 如果箭头函数的代码块部分多于一条语句，就要使用大括号将它们括起来，并且使用return语句返回。
+        // var sum = (num1, num2) => {
+        //     console.log(num1);
+        //     console.log(num2);
+        //     return num1 + num2;
+        // };
+
+        // demo4
+        // 由于大括号被解释为代码块，所以如果箭头函数直接返回一个对象，必须在对象外面加上括号，否则会报错。
+        // 报错
+        // let getTempItem = id => { 
+        //     id: id, 
+        //     name: "Temp"
+        // };
+
+        let getTempItem = id => ({ 
+            id: id, 
+            name: "Temp"
+        });
+
+        // demo5
+        // 使用注意点 
+        // （1）函数体内的this对象，就是定义时所在的对象，而不是使用时所在的对象。
+
+        // （2）不可以当作构造函数，也就是说，不可以使用new命令，否则会抛出一个错误。
+
+        // （3）不可以使用arguments对象，该对象在函数体内不存在。如果要用，可以用 rest 参数代替。
+
+        // （4）不可以使用yield命令，因此箭头函数不能用作 Generator 函数。
+
+        // function foo() {
+        //     setTimeout(() => {
+        //         console.log(this) // { id: 42 }
+        //         console.log('id:', this.id); // 42
+        //     }, 100);
+        // }
+        // function foo() {
+        //     setTimeout(function(){
+        //         console.log(this)  // 非严格模式下 this 指向window 对象，严格模式下this 指向undefined
+        //         console.log('id:', this.id); // 21
+        //     }, 100);
+        // }
+        // var id = 21;
+        // foo.call({ id: 42 });
+        // const foo2 = () => {
+        //     setTimeout(() => {
+        //         console.log(this) // { id: 42 }
+        //         console.log('id:', this.id); // 42
+        //     }, 100);
+        // }
+        // foo2.call({ id: 42 });
+
+        // // demo6
+        // function Timer() {
+        //     this.s1 = 0;
+        //     this.s2 = 0;
+        //     // 箭头函数
+        //     setInterval(() => this.s1++, 1000);
+        //     // 普通函数
+        //     setInterval(function () {
+        //         this.s2++;
+        //     }, 1000);
+        // }
+
+        // var timer = new Timer();
+
+        // setTimeout(() => console.log('s1: ', timer.s1), 3100); // 3
+        // setTimeout(() => console.log('s2: ', timer.s2), 3100); // 0
+
+        // demo7
+        // this指向的固定化，并不是因为箭头函数内部有绑定this的机制，实际原因是箭头函数根本没有自己的this，导致内部的this就是外层代码块的this。正是因为它没有this，所以也就不能用作构造函数。
+        // 所以，箭头函数转成 ES5 的代码如下。
+        // ES6
+        // function foo() {
+        //     setTimeout(() => {
+        //         console.log('id:', this.id);
+        //     }, 100);
+        // }
+
+        // ES5
+        // function foo() {
+        //     var _this = this;
+
+        //     setTimeout(function () {
+        //         console.log('id:', _this.id);
+        //     }, 100);
+        // }
+
+        // demo8
+        // function foo() {
+        //     return () => {
+        //         return () => {
+        //         return () => {
+        //             console.log('id:', this.id);
+        //         };
+        //         };
+        //     };
+        // }
+
+        // var f = foo.call({id: 1});
+        // var t1 = f.call({id: 2})()(); // id: 1
+        // console.log(t1)
+
+        // 除了this，以下三个变量在箭头函数之中也是不存在的，指向外层函数的对应变量：arguments、super、new.target。
+
+        // arguments
+        // function foo() {
+        //     setTimeout(() => {
+        //         console.log('arg',arguments) // [1,2,3,4,5]
+        //     },10)
+        // }
+        // foo(1,2,3,4,5)
+        // 上面代码中，箭头函数内部的变量arguments，其实是函数foo的arguments变量。
+
+        (function() {
+            return [
+                (() => this.x).bind({ x: 'inner' })()
+            ];
+        }).call({ x: 'outer' });
+
+        // 嵌套的箭头函数
+        
+    </script>
+</head>
+<body>
+    
+</body>
+</html>
