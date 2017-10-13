@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script>
+        // 数组的扩展
+        // 1 扩展运算符
+        // demo1
+        console.log(...[1, 2, 3]) // 1 2 3
+        console.log(1, ...[2, 3, 4], 5) // 1 2 3 4 5
+        function add(x, y) {
+            return x + y;
+        }
+        const nums = [1, 2, 6];
+        console.log(add(...nums)); // 3
+
+        // demo2
+        // 替代数组的 apply 方法
+        // ES5 的写法
+        function f(x, y, z) {
+            console.log(x, y, z); // 0 1 2
+        }
+        var args = [0, 1, 2];
+        f.apply(null, args);
+
+        // ES6 的写法
+        function es6f(x, y, z) {
+            console.log(x, y, z); // 0 1 2
+        }
+        es6f(...args);
+
+        // demo3
+        // ES5 的写法
+        console.log(Math.max.apply(null, [14, 3, 77])) // 77
+        // ES6 的写法
+        console.log(Math.max(...[14, 3, 77])) // 77
+        // 等同于
+        console.log(Math.max(14, 3, 77)) // 77
+
+        // demo4
+        // 通过push函数，将一个数组添加到另一个数组的尾部。
+        // ES5的 写法
+        // var arr1 = [0, 1, 2];
+        // var arr2 = [3, 4, 5];
+        // Array.prototype.push.apply(arr1, arr2);
+        // console.log(arr1); // [0, 1, 2, 3, 4, 5]
+
+
+        // ES6 的写法
+        let arr1 = [0, 1, 2];
+        let arr2 = [3, 4, 5];
+        arr1.push(...arr2);
+        console.log(arr1); // [0, 1, 2, 3, 4, 5]
+
+        // demo5
+        // ES5
+        let date = new (Date.bind.apply(Date, [null, 2015, 1, 1]))
+        console.log(date.getFullYear()); // 2015
+        console.log(date.getMonth()); // 1
+        console.log(date.getDate()); // 1
+
+        let date2 = new Date(...[2015, 1, 1]);
+        console.log(date2.getFullYear()); // 2015
+        console.log(date2.getMonth()); // 1
+        console.log(date2.getDate()); // 1
+
+
+        // 扩展运算符的应用
+        // 复制数组   数组是复合的数据类型，直接复制的话，只是复制了指向底层数据结构的指针，而不是克隆一个全新的数组。
+        // demo6
+        const a = [1, 2];
+        const a2 = a;
+        a2[0] = 2;
+        console.log(a); // [2, 2]
+
+        // demo7
+        // concat方法用于连接两个或多个数组。该方法不会改变现有的数组，而仅仅会返回被连接数组的一个副本。
+        const b1 = [1, 2];
+        console.log(b1.concat([3,4])) // [1, 2, 3, 4]
+        console.log(b1.concat(3,4)) // [1, 2, 3, 4]
+
+        // demo8
+        const c1 = [1, 2];
+        const c2 =  c1.concat();
+        c2[0] = 2
+        console.log(c2); // [2, 2]
+
+        // 与解构赋值结合
+        const list = [1, 2, 3, 4, 5];
+        // es5
+        var a0 = list[0];
+        var rest = list.slice(1);
+        console.log(a0) // 1
+        console.log(rest) // [2, 3, 4, 5]
+        // es6
+        let [a1, ...rest1] = list;
+        console.log(a1) // 1
+        console.log(rest1) // [2, 3, 4, 5]
+
+        // demo9
+        // 如果将扩展运算符用于数组赋值，只能放在参数的最后一位，否则会报错。
+        // const [...butLast, last] = [1, 2, 3, 4, 5];
+        // // 报错  Uncaught SyntaxError: Rest element must be last element
+
+        // const [first, ...middle, last] = [1, 2, 3, 4, 5];
+        // // 报错 Uncaught SyntaxError: Rest element must be last element
+
+        // 字符串 扩展运算符还可以将字符串转为真正的数组。
+        // demo10
+        console.log([...'以囍为贵']) // ["以", "和", "为", "贵"]
+        // 上面的写法，有一个重要的好处，那就是能够正确识别四个字节的 Unicode 字符。
+        console.log('x\uD83D\uDE80y'.length) // 4
+        console.log([...'x\uD83D\uDE80y'].length) // 3
+
+        // demo11
+        // split() 方法用于把一个字符串分割成字符串数组。
+        // reverse() 方法用于颠倒数组中元素的顺序。
+        // join() 方法用于把数组中的所有元素放入一个字符串。
+
+        let str = 'x\uD83D\uDE80y';
+        console.log(str.split('')) // ["x", "�", "�", "y"]
+        console.log(str.split('').reverse()) //  ["y", "�", "�", "x"]
+        console.log(str.split('').reverse().join('')) // y��x
+        console.log([...str].reverse()) // ["y", "🚀", "x"]
+        console.log([...str].reverse().join('')) // y🚀x
+        
+
+    </script>
+</head>
+<body>
+    <div>111</div>
+    <div>111</div>
+    <div>111</div>
+    <div>111</div>
+    <div>111</div>
+    <script>
+        // demo12
+        // 实现了 Iterator 接口的对象
+        let nodeList = document.querySelectorAll('div');
+        let array = [...nodeList];
+        console.log(array) // [div, div, div, div, div]
+        // querySelectorAll方法返回的是一个nodeList对象。它不是数组，而是一个类似数组的对象。这时，扩展运算符可以将其转为真正的数组，原因就在于NodeList对象实现了 Iterator 。
+        // 对于那些没有部署 Iterator 接口的类似数组的对象，扩展运算符就无法将其转为真正的数组。
+        let arrayLike = {
+            '0': 'a',
+            '1': 'b',
+            '2': 'c',
+            length: 3
+        };
+        // console.log([...arrayLike]) // arrayLike is not iterable
+        // Array.from() 方法从一个类似数组或可迭代的对象中创建一个新的数组实例。
+        arrayLike = Array.from(arrayLike)
+        console.log([...arrayLike]) //  ["a", "b", "c"]
+
+        // demo13
+        // Map 和 Set 结构，Generator 函数
+        // 扩展运算符内部调用的是数据结构的 Iterator 接口，因此只要具有 Iterator 接口的对象，都可以使用扩展运算符，比如 Map 结构。
+        let map = new Map([
+            [1, 'one'],
+            [2, 'two'],
+            [3, 'three'],
+        ]);
+
+        let arr = [...map.keys()]; 
+        let arr11 = [...map.values()]; 
+        console.log(arr) //[1, 2, 3]
+        console.log(arr11) //  ["one", "two", "three"]
+
+
+        // Generator 函数运行后，返回一个遍历器对象，因此也可以使用扩展运算符。
+        const go = function*(){
+            yield 1;
+            yield 2;
+            yield 3;
+        };
+        console.log([...go()]); // [1, 2, 3]
+    </script>
+</body>
+</html>
