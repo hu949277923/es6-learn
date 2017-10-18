@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script>
+        // 2 Array.from
+        // demo1
+        // Array.from方法用于将两类对象转为真正的数组：类似数组的对象（array-like object）和可遍历（iterable）的对象（包括ES6新增的数据结构Set和Map）。
+
+        // 下面是一个类似数组的对象，Array.from将它转为真正的数组。
+        let arrLike = {
+            '0': 'a',
+            '1': 'b',
+            '2': 'c',
+            'length': 3
+        }
+        console.log(Array.from(arrLike)) // ["a", "b", "c"]
+        console.log([].slice.call(arrLike)) // ["a", "b", "c"]
+
+        // demo2
+        // 只要是部署了Iterator接口的数据结构，Array.from都能将其转为数组。
+        console.log(Array.from('hello')) // ["h", "e", "l", "l", "o"]
+        let namesSet = new Set(['a', 'b'])
+        console.log(Array.from(namesSet)) // ['a', 'b']
+
+        // demo3
+        console.log(Array.from({ length: 3 })); // [undefined, undefined, undefined]
+
+        // Array.from还可以接受第二个参数，作用类似于数组的map方法，用来对每个元素进行处理，将处理后的值放入返回的数组。
+        // demo4
+        let arrLike2 = {
+            '0': '1',
+            '1': '2',
+            '2': '3',
+            'length': 3
+        }
+        console.log(Array.from(arrLike2, x => x * x)) //  [1, 4, 9]
+        // 等同于
+        console.log(Array.from(arrLike2).map( x => x * x)) //  [1, 4, 9]
+    </script>
+</head>
+<body>   
+    <span>1111</span> 
+    <span class="name">2222</span> 
+    <span>3333</span> 
+    <span class="name">4444</span> 
+    <script>
+        // demo5
+        let spans = document.querySelectorAll('span.name');
+        // Array.from()
+        console.log(Array.from(spans, span => span.textContent)) // ["2222", "4444"]
+        // map()
+        console.log(Array.prototype.map.call(spans, s => s.textContent)); //  ["2222", "4444"]
+
+        // demo6
+        // 下面的例子将数组中布尔值为false的成员转为0。
+        let arr3 = {
+            '0': 1,
+            '2': false,
+            '4': true,
+            '5': undefined,
+            'length': 5
+        }
+        arr3 = Array.from(arr3) // [1, undefined, false, undefined, true]
+        console.log(Array.from(arr3, x => x || 0)) // [1, 0, 0, 0, true]
+        // 如果map函数里面用到了this关键字，还可以传入Array.from的第三个参数，用来绑定this。
+        // Array.from()可以将各种值转为真正的数组，并且还提供map功能。这实际上意味着，只要有一个原始的数据结构，你就可以先对它的值进行处理，然后转成规范的数组结构，进而就可以使用数量众多的数组方法。
+        // demo7
+        console.log(Array.from({ length: 2 }, () => 'jack')) // ["jack", "jack"]
+
+        // Array.from()的另一个应用是，将字符串转为数组，然后返回字符串的长度。因为它能正确处理各种Unicode字符，可以避免JavaScript将大于\uFFFF的Unicode字符，算作两个字符的bug。
+        // demo8  𠮷
+        function countSymbols(string) {
+            return Array.from(string).length;
+        }
+        console.log(countSymbols('𠮷大赛的萨')) // 5
+        console.log('𠮷大赛的萨'.length) // 6
+
+    </script>
+</body>
+</html>

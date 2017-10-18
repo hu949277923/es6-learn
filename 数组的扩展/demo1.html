@@ -177,6 +177,10 @@
             yield 3;
         };
         console.log([...go()]); // [1, 2, 3]
+
+        // 如果对没有 Iterator 接口的对象，使用扩展运算符，将会报错。
+        const obj4 = {a: 1, b: 2};
+        let arr3 = [...obj4]; // TypeError:  obj4 is not iterable
     </script>
 </body>
 </html>
