@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script>
+        // 2 属性名表达式
+        // JavaScript 定义对象的属性，有两种方法。
+
+        // demo1
+        // 方法一 是直接用标识符作为属性名
+        let obj = {}
+        obj.foo = true
+        console.log(obj) // {foo: true}
+        // 方法二 是用表达式作为属性名，这时要将表达式放在方括号之内。
+        obj['a' + 'bc'] = 123;
+        console.log(obj) // {foo: true, abc: 123}
+        
+
+        // demo2
+        let propKey = 'foo';
+        let obj2 = {
+            [propKey]: 123,
+            ['a' + 'bc'] :'abc'
+        }
+        console.log(obj2) // {foo: 123, abc: "abc"}
+
+        // demo3
+        let lastWord = 'last word';
+
+        const a = {
+        'first word': 'hello',
+        [lastWord]: 'world'
+        };
+
+        console.log(a['first word']) // "hello"
+        console.log(a[lastWord]) // "world"
+        console.log(a['last word']) // "world"
+
+        // 表达式还可以用于定义方法名。
+        // demo4
+        let obj3 = {
+            ['h' + 'ello']() {
+                return 'h'
+            }
+        }
+        console.log(obj3.hello()) // h
+
+        // 注意，属性名表达式与简洁表示法，不能同时使用，会报错。
+        // demo5
+        // const foo = 'bar';
+        // const bar = 'abc';
+        // const baz = { [foo] }; // Uncaught SyntaxError: Unexpected token }
+        const foo = 'bar';
+        const baz = { [foo]: 'abc'};
+
+        // 注意，属性名表达式如果是一个对象，默认情况下会自动将对象转为字符串[object Object]，这一点要特别小心。
+
+        const keyA = { a: 1 }
+        const keyB = { a: 2 }
+        const keyObj = {
+            [keyA]: 'VALUEA',
+            [keyA]: 'VALUEb'
+        }
+        console.log(keyObj) // {[object Object]: "VALUEb"}
+        // 上面代码中，[keyA]和[keyB]得到的都是[object Object]，所以[keyB]会把[keyA]覆盖掉，而myObject最后只有一个[object Object]属性。
+        
+    </script>
+</head>
+<body>
+    
+</body>
+</html>

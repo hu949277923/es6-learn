@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script>
+        // 5 Object.assign()
+        // js对象中什么是可枚举性(enumerable)？
+        // 说到枚举，可能很多人都会想到枚举类型，但在javascript对象中有一个属性为可枚举性，他是什么呢？
+        // 可枚举性（enumerable）用来控制所描述的属性，是否将被包括在for...in循环之中。具体来说，如果一个属性的enumerable为false，下面三个操作不会取到该属性。
+        // * for..in循环
+        // * Object.keys方法
+        // * JSON.stringify方法
+
+        // demo1
+        var o = {a: 1, b: 2};
+        o.c = 3;
+        Object.defineProperty(o, 'd', {
+            value: 4,
+            enumerable: false
+        })
+        console.log(o.d) // 4
+        o.d = 5;
+        console.log(o.d) // 4
+        for (let key in o) {
+            console.log(key) // a b c 没有d
+        }
+        console.log(Object.keys(o)) // ["a", "b", "c"]
+        console.log(JSON.stringify(o)) // {"a":1,"b":2,"c":3}
+
+        // 上面代码中，d属性的enumerable为false，所以一般的遍历操作都无法获取该属性，使得它有点像“秘密”属性，但还是可以直接获取它的值。
+
+        // 至于for...in循环和Object.keys方法的区别，在于前者包括对象继承自原型对象的属性，而后者只包括对象本身的属性。如果需要获取对象自身的所有属性，不管enumerable的值，可以使用Object.getOwnPropertyNames方法
+        console.log(Object.getOwnPropertyNames(o)) //  ["a", "b", "c", "d"]
+        
+        // demo2
+        const target = { a: 1 };
+        const source1 = { b: 2 };
+        const source2 = { c: 3 };
+        Object.assign(target, source1, source2);
+        console.log(target) // {a: 1, b: 2, c: 3}
+
+        // 注意，如果目标对象与源对象有同名属性，或多个源对象有同名属性，则后面的属性会覆盖前面的属性。
+        
+        const target2 = { a: 1, b:1, c:1 };
+        const source12 = { b: 2, c:2 };
+        const source22 = { c: 3 };
+        Object.assign(target, source1, source2);
+        console.log(target) // {a: 1, b: 2, c: 3}
+        
+        // 如果只有一个参数，Object.assign会直接返回该参数。
+        // demo3
+        const demo3 = { a: 1}
+        Object.assign(demo3)
+        console.log(demo3) // { a: 1 }
+
+        // 如果该参数不是对象，则会先转成对象，然后返回。
+        // demo4
+        console.log(Object.assign(2)) // Number {[[PrimitiveValue]]: 2}
+        console.log(typeof Object.assign(2)) // object
+
+        // 由于undefined和null无法转成对象，所以如果它们作为参数，就会报错。
+        // demo5
+        // Object.assign(undefined) // Cannot convert undefined or null to object
+        // Object.assign(null) // Cannot convert undefined or null to object
+
+        // 如果非对象参数出现在源对象的位置（即非首参数），那么处理规则有所不同。首先，这些参数都会转成对象，如果无法转成对象，就会跳过。这意味着，如果undefined和null不在首参数，就不会报错。
+        // demo6
+        const demo6 = { a: 1 };
+        console.log(Object.assign(demo6, 2, undefined, null)) // { a: 1 }
+        console.log(Object.assign(demo6, 2, undefined, null) === demo6) // true
+
+        // 其他类型的值（即数值、字符串和布尔值）不在首参数，也不会报错。但是，除了字符串会以数组形式，拷贝入目标对象，其他值都不会产生效果。
+
+        // demo7
+        const v1 = 'abc';
+        const v2 = true;
+        const v3 = 10;
+        const demo7 = Object.assign(v1, v2, v3) 
+        console.log(demo7) // String {0: "a", 1: "b", 2: "c", length: 3, [[PrimitiveValue]]: "abc"}
+        const v4 = Object.assign(v2, v1, v3)
+        console.log(v4) // Boolean {0: "a", 1: "b", 2: "c", [[PrimitiveValue]]: true}
+        const v5 = Object.assign(v3, v1, v2)
+        console.log(v5) // Number {0: "a", 1: "b", 2: "c", [[PrimitiveValue]]: 10}
+        
+        // 注意：如果是2个字符串合并的话会直接报错如下：
+        // demo8
+        const vl1 = 'abc';
+        const vl2 = 'cde';
+        // console.log(Object.assign(vl1, vl2)) // Cannot assign to read only property '0' of object '[object String]'
+
+        // demo9
+        // 注意：Object.assign拷贝的属性是有限制的，只拷贝源对象的自身属性（不拷贝继承属性），也不拷贝不可枚举的属性（enumerable: false）。
+        const demo9 = Object.assign({b: 'c'},
+            Object.defineProperty({}, 'invisible', {
+                enumerable: false,
+                value: 'hello'
+            })
+        )
+        console.log(demo9) // {b: "c"}
+        // 上面代码中，Object.assign要拷贝的对象只有一个不可枚举属性invisible，这个属性并没有被拷贝进去。
+
+        // 属性名为 Symbol 值的属性，也会被Object.assign拷贝。
+        // demo10
+        const demo10 = Object.assign({ a: 'b' }, { [Symbol('c')]: 'd' })
+        console.log(demo10) // {a: "b", Symbol(c): "d"}
+
+        // 注意点:
+        // 1、 浅拷贝(Object.assign方法实行的是浅拷贝，而不是深拷贝。也就是说，如果源对象某个属性的值是对象，那么目标对象拷贝得到的是这个对象的引用。)
+        // demo11
+        const demo11 = {a: {b: 1}};
+        const do11 = Object.assign({}, demo11);
+        console.log(do11) // {a: {b: 1}}
+        demo11.a.b = 2;
+        console.log(do11.a.b) // 2
+        // 2、 同名属性的替换
+        // 3、 数组的处理  (Object.assign可以用来处理数组，但是会把数组视为对象)
+        console.log(Object.assign([1, 2, 3], [4, 5])) //  [4, 5, 3]
+        // 4、取值函数的处理  (Object.assign只能进行值的复制，如果要复制的值是一个取值函数，那么将求值后再复制。)
+        // demo12
+        const do12 = {
+            get foo() {return 1;}
+        }
+        const demo12 = {}
+        
+        console.log(Object.assign(demo12, do12)) // {foo: 1}
+
+        // 常见用途
+        // 1 为对象添加属性
+        class Point {
+            constructor(x, y) {
+                Object.assign(this, {x, y})
+                console.log(this)
+                console.log(y)
+            }
+            getXY() {
+                console.log(this.x, this.y) // 1 2
+            }
+        }
+        let demo13 = new Point(1, 2)
+        demo13.getXY() // 1 2
+        // 2 为对象添加方法
+        // demo13
+        let SomeClass = function() {}
+        Object.assign(SomeClass.prototype, {
+            someMethod(arg1, arg2) {
+                console.log('assign', arg1, arg2) // assign 1 2
+            },
+            anotherMethod() {
+                console.log('assign anotherMethod') // assign anotherMethod
+            }
+        })
+        // 等同于
+        // SomeClass.prototype.someMethod = function(arg1, arg2) {
+        //     console.log(arg1, arg2)
+        // }
+        // SomeClass.prototype.anotherMethod = function() {
+        //     console.log('anotherMethod')
+        // }
+        // SomeClass = new SomeClass()
+        // SomeClass.someMethod(1, 2) //  1 2
+        // SomeClass.anotherMethod() // anotherMethod
+        
+        // 3 克隆对象
+        function clone(orgin) {
+            return Object.assign({}, orgin);
+        }
+        // 将原始对象拷贝到一个空对象，就得到了原始对象的克隆。
+        // 深度克隆  (将原型链及继承的值全部进行克隆)
+        // Object.getPrototypeOf() 方法返回指定对象的原型（内部[[Prototype]]属性的值）。
+        // Object.create() 方法会使用指定的原型对象及其属性去创建一个新的对象。
+        var propto = {}
+        var obj = Object.create(propto);
+        console.log(Object.getPrototypeOf(obj) === propto) // true
+        function clone2(orgin) {
+            let org = Object.getPrototypeOf(orgin);
+            
+        }
+        // 4 合并多个对象
+        // 5 为属性指定默认值
+        
+
+    </script>
+</head>
+<body>
+    
+</body>
+</html>

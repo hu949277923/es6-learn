@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script>
+        // 对象的扩展
+        // 属性的简洁表示法
+        // demo1
+        const foo = 'bar';
+        const baz = { foo };
+        console.log(JSON.stringify(baz)); // {"foo":"bar"}
+
+        // demo2
+        function f(x, y) {
+            return {x, y}
+        }
+        console.log(f(1, 2)) // { x: 1, y: 2}
+
+        // demo3
+        const o = {
+            method() {
+                return 'hello!';
+            }
+        };
+        // 等同于
+        // const o = {
+        //     method: function() {
+        //         return 'hello!';
+        //     }
+        // }
+
+        // demo4
+        // CommonJS 模块输出一组变量，就非常合适使用简洁写法。
+        let ms = {}
+        function getItem(key) {
+            return key in ms ? ms[key] : null;
+        }
+        function setItem(key, value) {
+            ms[key] = value;
+        }
+        function clear() {
+            ms = {};
+        }
+        // module.exports = { getItem, setItem, clear };
+        // 等同于
+        // module.exports = {
+        //     getItem: getItem,
+        //     setItem: setItem,
+        //     clear: clear
+        // }
+
+        // demo5
+        const obj = {
+            * m() {
+                yield 'hello';
+                yield 'world';
+            }
+        }
+        let a = obj.m();
+        console.log(a.next()) // hello
+        console.log(a.next()) // world
+        
+        
+    </script>
+</head>
+<body>
+    
+</body>
+</html>

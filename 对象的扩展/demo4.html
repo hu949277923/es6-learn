@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script>
+        // 4 Object.is()
+        // ES5 比较两个值是否相等，只有两个运算符：相等运算符（==）和严格相等运算符（===）。它们都有缺点，前者会自动转换数据类型，后者的NaN不等于自身，以及+0等于-0。JavaScript 缺乏一种运算，在所有环境中，只要两个值是一样的，它们就应该相等。
+
+        // ES6 提出“Same-value equality”（同值相等）算法，用来解决这个问题。Object.is就是部署这个算法的新方法。它用来比较两个值是否严格相等，与严格比较运算符（===）的行为基本一致。
+
+        // demo1
+        console.log(Object.is('123', '123')) // true
+        console.log(Object.is({}, {})) // false
+
+        // demo2
+        console.log(+0 === -0) // true
+        console.log(NaN === NaN) // false
+        console.log(Object.is(+0, -0)) // false
+        console.log(Object.is(NaN, NaN)) // true
+
+        // Object.defineProperty() 方法会直接在一个对象上定义一个新属性，或者修改一个对象的现有属性， 并返回这个对象。(详情见：https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Object/defineProperty)
+        Object.defineProperty(Object, 'is2', {
+            value: function(x, y) {
+                if (x === y) {
+                // 针对+0 不等于 -0的情况
+                console.log(x !== 0)
+                console.log(1 / x)
+                console.log(1 / y)
+                console.log(Infinity === -Infinity) // false
+                return x !== 0 || 1 / x === 1 / y;
+                }
+                // 针对NaN的情况
+                return x !== x && y !== y;
+            },
+            configurable: true, // 当且仅当该属性的 configurable 为 true 时，该属性描述符才能够被改变，同时该属性也能从对应的对象上被删除。默认为 false。
+            enumerable: false, // 当且仅当该属性的 enumerable 为 true 时，该属性才能够出现在对象的枚举属性中。默认为 false。
+            writable: true // 当且仅当该属性的 writable 为 true 时，该属性才能被赋值运算符改变。默认为 false。
+        });
+        console.log(Object.is2(+0, -0)) // false
+    </script>
+</head>
+<body>
+    
+</body>
+</html>
