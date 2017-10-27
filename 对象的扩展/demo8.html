@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script>
+        // 8  __proto__属性，Object.setPrototypeOf()，Object.getPrototypeOf()
+        // JavaScript 语言的对象继承是通过原型链实现的。ES6 提供了更多原型对象的操作方法。
+
+        // __proto__属性
+        // __proto__属性（前后各两个下划线），用来读取或设置当前对象的prototype对象。目前，所有浏览器（包括 IE11）都部署了这个属性。
+        
+        //demo1
+        // es6
+        const somethingObj = {
+            name: 'hello'
+        }
+        const obj = {
+            mothod: function() {
+                console.log('1111')
+            }
+        }
+        obj.__proto__ = somethingObj;
+        console.log(obj);
+
+        //es5
+        var obj2 = Object.create(somethingObj);
+        obj2.method = function() {
+            console.log(111)
+        }
+        console.log(obj2);
+        // 属性没有写入 ES6 的正文，而是写入了附录，原因是__proto__前后的双下划线，说明它本质上是一个内部属性，而不是一个正式的对外的 API，只是由于浏览器广泛支持，才被加入了 ES6。标准明确规定，只有浏览器必须部署这个属性，其他运行环境不一定需要部署，而且新的代码最好认为这个属性是不存在的。因此，无论从语义的角度，还是从兼容性的角度，都不要使用这个属性，而是使用下面的Object.setPrototypeOf()（写操作）、Object.getPrototypeOf()（读操作）、Object.create()（生成操作）代替。
+        // 实现上，__proto__调用的是Object.prototype.__proto__，具体实现如下。
+        // demo2
+        // Object 构造函数创建一个对象包装器。
+        console.log(Object.getPrototypeOf({ __proto__: null })) // null
+
+        // Object.setPrototypeOf() 
+        let proto = {}
+        let obj4 = {x: 10}
+        Object.setPrototypeOf(obj4, proto);
+        proto.y = 1;
+
+        proto.z = 1;
+        console.log(obj4.x);
+        console.log(obj4.y);
+        console.log(obj4.z);
+
+        // demo3
+        Object.setPrototypeOf(1, {}) === 1 // true
+        Object.setPrototypeOf('foo', {}) === 'foo' // true
+        Object.setPrototypeOf(true, {}) === true // true
+        // 由于undefined和null无法转为对象，所以如果第一个参数是undefined或null，就会报错。
+        // Object.setPrototypeOf(undefined, {}) // Object.setPrototypeOf called on null or undefined
+        // Object.setPrototypeOf(null, {}) // Object.setPrototypeOf called on null or undefined
+
+        console.log(Object.getPrototypeOf(obj4));
+        console.log(Object.getPrototypeOf(1));
+        console.log(Object.getPrototypeOf('foo'));
+        console.log(Object.getPrototypeOf(true));
+    </script>
+</head>
+<body>
+    
+</body>
+</html>

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script>
+        // 10 Object.keys()，Object.values()，Object.entries()
+        // Object.keys()  ES5 引入了Object.keys方法，返回一个数组，成员是参数对象自身的（不含继承的）所有可遍历（enumerable）属性的键名
+        // demo1
+        const obj = {
+            foo: 'foo',
+            bar: 'bar'
+        }
+        console.log(Object.keys(obj)) // [foo, bar]
+        // ES2017 引入了跟Object.keys配套的Object.values和Object.entries，作为遍历一个对象的补充手段，供for...of循环使用。
+
+        // demo2
+        let {keys, values, entries} = Object;
+        let obj2 = {
+            'a': 1,
+            'b': 2,
+            'c': 3
+        }
+        console.log(keys(obj2)) // [a, b, c]
+        console.log(values(obj2)) // [1, 2, 3]
+        console.log(JSON.stringify(entries(obj2))) // [["a",1],["b",2],["c",3]]
+        for (let [key, value] of entries(obj2)) {
+            console.log([key, value]); // ['a', 1], ['b', 2], ['c', 3]
+        }
+
+        // Object.values()方法返回一个数组，成员是参数对象自身的（不含继承的）所有可遍历（enumerable）属性的键值。
+        //demo3
+        const obj3 = { 100: 'a', 2: 'b', 7: 'c' };
+        console.log(Object.values(obj3))// ["b", "c", "a"]
+        const obj4 = Object.create({}, {p: {value: 42}, c: {value: 12}});
+        console.log(obj4) // {p: 42}
+        console.log(Object.values(obj4)) // []
+
+        // Object.values会过滤属性名为 Symbol 值的属性。
+        console.log(Object.values({ [Symbol()]: 123, foo: 'abc' })); // ["abc"]
+        let demo = { [Symbol()]: 123, foo: 'abc' }
+        for ( key in demo) {
+            console.log(key);
+        }
+        // 遍历时会过滤掉属性名为 Symbol 值的属性。
+
+        // 如果Object.values方法的参数是一个字符串，会返回各个字符组成的一个数组。
+        console.log('都是𠮷oo'.length) // 6
+        console.log(Object.values('都是𠮷oo')) //  ["都", "是", "�", "�", "o", "o"]   𠮷 （Unicode码点大于0xFFFF的字符）
+
+        // Object.entries
+        // demo4
+        // Object.entries方法的另一个用处是，将对象转为真正的Map结构。
+        const obj = { foo: 'bar', baz: 42 }; 
+        const map = new Map(Object.entries(obj));
+        // 什么时候需要map?
+
+        // - 在运行之前 key 是否是未知的，是否需要动态地查询 key 呢？
+        // - 是否所有的(值)都是(统一类型)，这些值可以互换么？
+        // - 是否需要不是字符串类型的 key ？
+        // - 键值对经常增加或者删除么？
+        // - 是否有任意个且非常容易改变的键值对?
+        // - 这个集合可以遍历么(Is the collection iterated)?
+    </script>
+</head>
+<body>
+    
+</body>
+</html>

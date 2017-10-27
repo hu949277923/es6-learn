@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script>
+        // 11 对象的扩展运算符
+        // 解构赋值必须是最后一个参数，否则会报错。
+
+        // let { ...x, y, z } = obj; // 句法错误
+        // let { x, ...y, ...z } = obj; // 句法错误
+
+        // demo1
+        // 解构赋值的拷贝是浅拷贝
+        let obj = { a: { b: 1 } };
+        let { ...x } = obj;
+        obj.a.b = 2;
+        console.log(x.a.b) // 2
+
+        // 扩展运算符的解构赋值，不能复制继承自原型对象的属性。
+        // demo2
+        let o1 = { a: 1}
+        let o2 = { b: 2}
+        o2.__proto__ = o1;
+        let {...o3} = o2;
+        console.log(o3) // {b: 2}
+
+        // demo3
+        // const o = Object.create({ x: 1, y: 2 });
+        // o.z = 3;
+        
+        // let { x, ...{ y, z } } = o;
+        // x // 1
+        // y // undefined
+        // z // 3
+        // 上面代码中，变量x是单纯的解构赋值，所以可以读取对象o继承的属性；变量y和z是扩展运算符的解构赋值，只能读取对象o自身的属性，所以变量z可以赋值成功，变量y取不到值。
+        
+
+    </script>
+</head>
+<body>
+    
+</body>
+</html>
