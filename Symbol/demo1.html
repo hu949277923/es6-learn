@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script>
+        // 概述
+        // ES5 的对象属性名都是字符串，这容易造成属性名的冲突。比如，你使用了一个他人提供的对象，但又想为这个对象添加新的方法（mixin 模式），新方法的名字就有可能与现有方法产生冲突。如果有一种机制，保证每个属性的名字都是独一无二的就好了，这样就从根本上防止属性名的冲突。这就是 ES6 引入Symbol的原因。
+
+        // demo1
+        let s = Symbol()
+        console.log(typeof s); // symbol
+
+        // 注意，Symbol函数前不能使用new命令，否则会报错。这是因为生成的 Symbol 是一个原始类型的值，不是对象。也就是说，由于 Symbol 值不是对象，所以不能添加属性。基本上，它是一种类似于字符串的数据类型。
+
+        //Symbol函数可以接受一个字符串作为参数，表示对 Symbol 实例的描述，主要是为了在控制台显示，或者转为字符串时，比较容易区分。
+
+        // demo2
+        let s1 = Symbol('foo');
+        let s2 = Symbol('bar');
+        console.log(s1, s2) // Symbol(foo) Symbol(bar)
+        console.log(s1.toString()) // Symbol(foo)
+        console.log(s2.toString()) // Symbol(bar)
+
+        console.log( Symbol('FOO') == Symbol('FOO')) // false
+
+        // 如果 Symbol 的参数是一个对象，就会调用该对象的toString方法，将其转为字符串，然后才生成一个 Symbol 值。
+
+        // demo3
+        const obj = {
+            toString() {
+                return 'abc';
+            }
+        }
+        console.log(Symbol(obj)) // Symbol(abc)
+        // 注意，Symbol函数的参数只是表示对当前 Symbol 值的描述，因此相同参数的Symbol函数的返回值是不相等的。
+
+        // demo4
+        // 没有参数的情况
+        // let s1 = Symbol();
+        // let s2 = Symbol();
+
+        // console.log(s1 === s2) // false
+
+        // // 有参数的情况
+        // let s1 = Symbol('foo');
+        // let s2 = Symbol('foo');
+
+        // console.log(s1 === s2) // false
+
+        // // Symbol 值不能与其他类型的值进行运算，会报错。
+
+        // demo5
+        let sym = Symbol('My symbol');
+        // console.log("your symbol is " + sym) // Cannot convert a Symbol value to a string
+        // console.log(`your symbol is ${sym}`) // Cannot convert a Symbol value to a string
+
+        // 但是，Symbol 值可以显式转为字符串。
+        // demo6
+        console.log(String(sym)) // Symbol(My symbol)
+        console.log(sym.toString()) // Symbol(My symbol)
+
+        // 另外，Symbol 值也可以转为布尔值，但是不能转为数值。
+        // demo7
+        console.log(Boolean(sym)); // true
+        // console.log(Number(Symbol())) // Cannot convert a Symbol value to a number
+
+        // 总结：  
+        // symbol 是唯一的，不可重复的，解决了变量名、属性名重复的问题
+        // symbol 不可用于运算 如： 拼接字符串（"abc"+symbol()）
+        // symbol 仅可以转成字符串或布尔值
+        // symbol 不能使用 new 关键词
+        // symbol 仅仅可以传入一个描述符
+    </script>
+</head>
+<body>
+    
+</body>
+</html>
