@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        // Reflect
+        // 概述
+        // Reflect对象 与 proxy对象一样，是es6为了操作对象而提供的新的api
+        // Reflect设计目的：
+        // 1、Reflect对象可以调用语言内部的方法
+        // 2、修改某些Object方法的返回结果，让其变得更合理。比如，Object.defineProperty(obj, name, desc)在无法定义属性时，会抛出一个错误，而Reflect.defineProperty(obj, name, desc)则会返回false。 ？？？
+        // 3、让Object操作都变成函数行为
+        // old
+        console.log('assign' in Object) // true
+        // new
+        console.log(Reflect.has(Object, 'assign'))// true
+
+        // 4、不管Proxy怎么修改默认行为，你总可以在Reflect上获取默认行为。
+       
+        
+        // 总结
+        // 1、Reflect对象与proxy对象一样，是es6为了操作对象而提供的新的api
+        // 2、Reflect对象可以调用语言内部的方法
+        // 3、Object在无法定义属性时，会抛出异常，而Reflect对象则返回false
+        // 4、Object的一些操作是命令式的如：'assgin' in Object, Reflect对象则变成函数式的如：Reflect.has('assgin')
+        // 5、不管Proxy怎么修改默认行为，你总可以在Reflect上获取默认行为。
+    </script>
+</body>
+</html>
