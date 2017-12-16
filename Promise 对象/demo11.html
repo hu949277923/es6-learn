@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id="log">aaa</div>
+    <script>
+        // Promise 对象
+        // 11、Promise.try()
+        // 同步函数同步执行，异步函数异步执行，并且让它们具有统一的 API,鉴于这是一个很常见的需求，所以现在有一个提案，提供Promise.try方法。
+        
+        // 1、用async函数来写
+        // eg1:
+        // const f = () => console.log('now');
+        // (async () => f())();
+        // console.log('next');
+        // now
+        // next
+        
+        // 2、使用new Promise()
+        // eg2:
+        // const f = () => console.log('now');
+        // (
+        //     () => new Promise(
+        //         resolve => resolve(f())
+        //     )
+        // )();
+        // console.log('next');
+
+        // now
+        // next
+        // 总结：
+        // 1、提案 同步函数同步执行，异步函数异步执行，并且让它们具有统一的 API
+        // 2、Promise.try存在已久，Promise 库Bluebird（http://bluebirdjs.com/docs/api/promise.try.html）、Q（https://github.com/kriskowal/q/wiki/API-Reference#promisefcallargs）和when（https://github.com/cujojs/when/blob/master/docs/api.md#whentry），早就提供了这个方法。
+    </script>
+</body>
+</html>
