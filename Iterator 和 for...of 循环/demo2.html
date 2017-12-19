@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    
+</head>
+<body>
+    <div>1</div>
+    <div>2</div>
+    <div>3</div>
+    <div>4</div>
+    <script>
+        // Iterator 和 for...of 循环
+        // 2、默认 Iterator 接口
+
+        const obj = {
+            [Symbol.iterator]: function() {
+                return {
+                    next: function() {
+                        return {
+                            value: 1,
+                            done: true
+                        }
+                    }
+                }
+            }
+        }
+        console.log(obj)
+        // 原生具备 Iterator 接口的数据结构如下。
+        // - Array
+        // - Map
+        // - Set
+        // - String
+        // - TypedArray
+        // - 函数的 arguments 对象
+        // - NodeList 对象
+
+
+        // 数组的Symbol.iterator属性
+        let arr = ['a', 'b', 'c'];
+        let iter = arr[Symbol.iterator]()
+        console.log(iter.next()) // {value: "a", done: false}
+        console.log(iter.next()) // {value: "b", done: false}
+        console.log(iter.next()) // {value: "c", done: false}
+        console.log(iter.next()) // {value: undefined, done: true}
+        // 对象（Object）之所以没有默认部署 Iterator 接口，是因为对象的哪个属性先遍历，哪个属性后遍历是不确定的，需要开发者手动指定。本质上，遍历器是一种线性处理，对于任何非线性的数据结构，部署遍历器接口，就等于部署一种线性转换。不过，严格地说，对象部署遍历器接口并不是很必要，因为这时对象实际上被当作 Map 结构使用，ES5 没有 Map 结构，而 ES6 原生提供了。
+
+        let arr2 = [...document.getElementsByTagName('div')]
+        let iter2 = arr2[Symbol.iterator]()
+        console.log(iter2.next())
+        console.log(iter2.next())
+        console.log(iter2.next())
+
+
+        // 总结：
+        // 1、一个数据结构中只要有Symbol(iterator)属性就可以认为是可遍历的
+        // 2、对于原生部署 Iterator 接口的数据结构，不用自己写遍历器生成函数,其他数据结构都需要自己在Symbol.iterator属性上面部署，这样才会被for...of循环遍历。
+        // 3、对象是没有Iterator属性的.是因为对象的哪个属性先遍历，哪个属性后遍历是不确定的，需要开发者手动指定
+        // 4、一个对象如果要具备可被for...of循环调用的 Iterator 接口，就必须在Symbol.iterator的属性上部署遍历器生成方法（原型链上的对象具有该方法也可）。
+        // 5、 for...of next {value: "a", done: false}
+    </script>
+</body>
+</html>

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    
+</head>
+<body>
+    <div>1</div>
+    <div>2</div>
+    <div>3</div>
+    <div>4</div>
+    <script>
+        // Iterator 和 for...of 循环
+        // 3、调用 Iterator 接口的场合
+        // 解构赋值
+        // 对数组和 Set 结构进行解构赋值时，会默认调用Symbol.iterator方法。
+        let set = new Set().add('a').add('b').add('c');
+        let [x, y] = set;
+        console.log(x, y) // a b
+        let [fisrt, ...last] = set
+        console.log(fisrt, last) // a ["b", "c"]
+
+        // 扩展运算符
+        // let arr = [...iterable];
+
+        // 实际上，这提供了一种简便机制，可以将任何部署了 Iterator 接口的数据结构，转为数组。也就是说，只要某个数据结构部署了 Iterator 接口，就可以对它使用扩展运算符，将其转为数组。
+        
+        // yield*
+        // yield*后面跟的是一个可遍历的结构，它会调用该结构的遍历器接口。
+        let generator = function* () {
+            yield 1;
+            yield* [2, 3, 4];
+            yield 5;
+        }
+        var iter2 = generator();
+        console.log(iter2.next()) // {value: 1, done: false}
+        console.log(iter2.next()) // {value: 2, done: false}
+        console.log(iter2.next()) // {value: 3, done: false}
+        console.log(iter2.next()) // {value: 4, done: false}
+        console.log(iter2.next()) // {value: 5, done: false}
+        console.log(iter2.next()) // {value: undefined, done: true}
+
+        // 其他场合
+        // - for...of
+        // - Array.from()
+        // - Map(), Set(), WeakMap(), WeakSet()（比如new Map([['a',1],['b',2]])）
+        // - Promise.all()
+        // - Promise.race()
+
+        // 总结：
+        // 调用iterator接口的场合(解构赋值、扩展运算符、yield*、其他场合见上方)
+    </script>
+</body>
+</html>

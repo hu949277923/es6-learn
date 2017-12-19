@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    
+</head>
+<body>
+    <div>1</div>
+    <div>2</div>
+    <div>3</div>
+    <div>4</div>
+    <script>
+        // Iterator 和 for...of 循环
+        // 6、遍历器对象的 return()，throw() 
+        // function readLinesSync(file) {
+        //     return {
+        //         next() {
+        //         return { done: false };
+        //         },
+        //         return() {
+        //         file.close();
+        //         return { done: true };
+        //         },
+        //     };
+        // }  
+        // // 情况一
+        // for (let line of readLinesSync(fileName)) {
+        //     console.log(line);
+        //     break;
+        // }
+
+        // // 情况二
+        // for (let line of readLinesSync(fileName)) {
+        //     console.log(line);
+        //     continue;
+        // }
+
+        // // 情况三
+        // for (let line of readLinesSync(fileName)) {
+        //     console.log(line);
+        //     throw new Error();
+        // }
+
+        // 总结：
+        // 1、遍历器对象的 return()，throw() 
+        // 2、如果自己写的遍历器则，部署return 和throw方法是可选的
+        // 3、通常情况下有break、continue或者抛出异常等情况下会调用return 方法
+        // 4、throw方法主要是配合 Generator 函数使用，一般的遍历器对象用不到这个方法
+        // 注意：return方法必须返回一个对象，这是 Generator 规格决定的
+
+    </script>
+</body>
+</html>
