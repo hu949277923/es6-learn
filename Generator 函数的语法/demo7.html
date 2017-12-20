@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script>
+        // Generator 函数的语法
+        // 7、yield* 表达式
+        function* genFuncWithReturn() {
+            yield 'a';
+            yield 'b';
+            return 'The result';
+        }
+        function* logReturned(genObj) {
+            let result = yield* genObj;
+            console.log(result);
+        }
+
+        console.log([...logReturned(genFuncWithReturn())])
+        // The result
+        // 值为 [ 'a', 'b' ]
+        
+        // 总结
+        // 1、yield* 用来在Generator函数中调用另一个Generator函数的
+        // 2、任何数据结构只要有 Iterator 接口，就可以被yield*遍历
+    </script>
+</head>
+<body>
+    
+</body>
+</html>

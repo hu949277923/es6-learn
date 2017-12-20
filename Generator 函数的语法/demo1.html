@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script>
+        // Generator 函数的语法
+        // 1、简介
+
+        // 基本概念
+
+        // demo1
+        function* helloWorldGenerator() {
+            yield 'hello';
+            yield 'world';
+            return 'ending';
+        }
+        var hw = helloWorldGenerator()
+        for(item of hw) {
+            console.log(item)
+        }
+        // demo2
+        // ES6 没有规定，function关键字与函数名之间的星号，写在哪个位置。这导致下面的写法都能通过。
+        // function * foo(x, y) {  }
+        // function *foo(x, y) {  }
+        // function* foo(x, y) {  }
+        // function*foo(x, y) {  }
+
+        // yield 表达式
+        // 由于 Generator 函数返回的遍历器对象，只有调用next方法才会遍历下一个内部状态，所以其实提供了一种可以暂停执行的函数。yield表达式就是暂停标志。
+
+        // 遍历器对象的next方法的运行逻辑:
+        // 1、遇到yield表达式，就暂停执行后面的操作，并将紧跟在yield后面的那个表达式的值，作为返回的对象的value属性值。
+        // 2、下一次调用next方法时，再继续往下执行，直到遇到下一个yield表达式。
+        // 3、如果没有再遇到新的yield表达式，就一直运行到函数结束，直到return语句为止，并将return语句后面的表达式的值，作为返回的对象的value属性值。
+        // 4、如果该函数没有return语句，则返回的对象的value属性值为undefined。
+
+        // demo3
+        function* f() {
+            console.log('执行')
+        }
+        var generator = f()
+        setTimeout(function(){
+            generator.next()
+        },100)
+        // Generator 可以不用yield表达式，上面的变成了一个单纯的暂缓执行函数
+
+
+        // demo4
+        var arr = [1, [[2, 3], 4], [5, 6]];
+
+        // var flat = function*(a) {
+        //     a.forEach(item => {
+        //         if (typeof item !== Number) {
+        //             yield* flat(item);
+        //         } else {
+        //             console.log(item)
+        //             yield item; // Uncaught SyntaxError: Unexpected identifier
+        //         }
+        //     });
+        // }
+        var flat = function*(a) {
+            var len = a.length;
+            for (var i = 0; i < len; i++) {
+                if (typeof a[i] !== 'number') {
+                    yield* flat(a[i]);
+                } else {
+                    yield a[i]
+                }
+            }
+        }
+        for (item of flat(arr)) {
+            console.log(item) // 1, 2, 3, 4, 5, 6
+        }
+
+        // demo5
+        function* demo() {
+            // console.log('Hello' + yield); // SyntaxError
+            // console.log('Hello' + yield 123); // SyntaxError
+
+            console.log('Hello' + (yield 321)); // OK 
+            console.log('Hello' + (yield 123)); // OK 
+        }
+
+
+        function* demo5() {
+            foo(yield 'a', yield 'b'); // OK
+            let input = yield; // OK
+        }
+
+        // 与 Iterator 接口的关系
+        var myIterable = {}
+        myIterable[Symbol.iterator] = function*() {
+            yield 1;
+            yield 2;
+            yield 3;
+        }
+        console.log([...myIterable]) // [1, 2, 3]
+
+
+
+
+        // 总结
+        // 1、Generator 函数是一个状态机，封装了多个内部状态。
+        // 2、Generator 函数除了一个状态机，还是一个遍历器对象生成的函数
+        // 3、Generator 的特征。funciton 关键字 与函数名之间有一个星号；函数体内使用yield表达式定义不同内部状态
+        // 4、Generator 函数调用的方法与普通方法调用一样，不同的是，调用该函数后并不执行，返回的也不是运行结果，而是一个内部状态的指针对象（遍历器对象）
+        // 5、yield 与return 区别
+        // - yield保留字与return语句的返回值的执行原理不同
+        // - yield生成值并不会中止程序的运行，返回值后程序继续向后执行，return返回值后程序将被中止
+        // 6、 Generator 函数只有调用next方法是才执行
+        // 7、yield表达式只有在Generator函数中使用，用到其他地方会报错
+        // 8、yield如果用在另一个表达式中，必须放在圆括号里面
+        // 9、yield表达式用作函数参数或放在赋值表达式的右边，可以不加括号。
+        // 10、可以把 Generator 赋值给对象的Symbol.iterator属性，从而使得该对象具有 Iterator 接口
+    </script>
+</head>
+<body>
+    
+</body>
+</html>
