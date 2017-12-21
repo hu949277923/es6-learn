@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script>
+        // Generator 函数的异步应用
+         // JavaScript 语言的 Thunk 函数 
+
+        // JavaScript 语言是传值调用，它的 Thunk 函数含义有所不同。在 JavaScript 语言中，Thunk 函数替换的不是表达式，而是多参数函数，将其替换成一个只接受回调函数作为参数的单参数函数。
+        
+        // 正常版本的readFile（多参数版本）
+        // fs.readFile(fileName, callback);
+
+        // // Thunk版本的readFile（单参数版本）
+        // var Thunk = function (fileName) {
+        //     return function (callback) {
+        //         return fs.readFile(fileName, callback);
+        //     };
+        // };
+
+        // var readFileThunk = Thunk(fileName);
+        // readFileThunk(callback);
+        // 上面代码中，fs模块的readFile方法是一个多参数函数，两个参数分别为文件名和回调函数。经过转换器处理，它变成了一个单参数函数，只接受回调函数作为参数。这个单参数版本，就叫做 Thunk 函数。
+
+        // 总结
+        // 1、经过转换器处理，变成了一个单参数函数，只接受回调函数作为参数。这个单参数版本，就叫做 Thunk 函数。
+        // 2、Thunk 函数并不是 Generator 函数自动执行的唯一方案。因为自动执行的关键是，必须有一种机制，自动控制 Generator 函数的流程，接收和交还程序的执行权。回调函数可以做到这一点，Promise 对象也可以做到这一点。
+    </script>
+</head>
+<body>
+    
+</body>
+</html>

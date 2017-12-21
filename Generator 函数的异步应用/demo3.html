@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script>
+        // Generator 函数的异步应用
+        // 3、Generator 函数
+
+        // 协程 
+        // 传统的编程语言，早有异步编程的解决方案（其实是多任务的解决方案）。其中有一种叫做"协程"（coroutine），意思是多个线程互相协作，完成异步任务。
+        // 协程有点像函数，又有点像线程。它的运行流程大致如下。
+        // - 第一步，协程A开始执行。
+        // - 第二步，协程A执行到一半，进入暂停，执行权转移到协程B。
+        // - 第三步，（一段时间后）协程B交还执行权。
+        // - 第四步，协程A恢复执行。
+
+        // Thunk 函数
+        // Thunk 函数是自动执行 Generator 函数的一种方法。
+        // 传名调用
+        var thunk = function () {
+            var x = 1;
+            return x + 5;
+        };
+
+        function f(thunk) {
+            return thunk() * 2;
+        }
+        console.log(f(thunk)) // 12
+
+       
+
+
+        // 总结
+        // 1、协程是指多个线程互相协作完成异步任务
+        // 2、Thunk 函数是自动执行 Generator 函数的一种方法。Thunk 函数是“传名调用”的一种实现策略，用来替换某个表达式。
+        
+    </script>
+</head>
+<body>
+    
+</body>
+</html>
