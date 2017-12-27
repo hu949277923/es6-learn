@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script>
+        //async 函数
+        // 7、异步遍历器
+        // 为异步操作提供原生的遍历器接口，即value和done这两个属性都是异步产生，这称为”异步遍历器“（Async Iterator）。
+        
+        // for await...of
+        // 如果next方法返回的 Promise 对象被reject，for await...of就会报错，要用try...catch捕捉。
+        async function () {
+            try {
+                for await (const x of createRejectingIterable()) {
+                console.log(x);
+                }
+            } catch (e) {
+                console.error(e);
+            }
+        }
+        // 注意，for await...of循环也可以用于同步遍历器。
+        (async function () {
+            for await (const x of ['a', 'b']) {
+                console.log(x);
+            }
+        })();
+        // a
+        // b
+
+        // 异步 Generator 函数
+
+        // 就像 Generator 函数返回一个同步遍历器对象一样，异步 Generator 函数的作用，是返回一个异步遍历器对象。
+        // 在语法上，异步 Generator 函数就是async函数与 Generator 函数的结合。
+        async function* gen() {
+            yield 'hello';
+        }
+        const genObj = gen();
+        genObj.next().then(x => console.log(x));
+        // { value: 'hello', done: false }
+
+
+        // 总结
+        // 1、一个对象的同步遍历器的接口，部署在Symbol.iterator属性上面。同样地，对象的异步遍历器接口，部署在Symbol.asyncIterator属性上面。不管是什么样的对象，只要它的Symbol.asyncIterator属性有值，就表示应该对它进行异步遍历。
+        // 2、如果next方法返回的 Promise 对象被reject，for await...of就会报错，要用try...catch捕捉。
+        // 3、for await...of循环也可以用于同步遍历器。
+        // 4、普通的 async 函数返回的是一个 Promise 对象，而异步 Generator 函数返回的是一个异步 Iterator 对象。可以这样理解，async 函数和异步 Generator 函数，是封装异步操作的两种方法，都用来达到同一种目的。区别在于，前者自带执行器，后者通过for await...of执行，或者自己编写执行器。
+    </script>
+</head>
+<body>
+    
+</body>
+</html>
