@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script>
+        //Class 的基本语法
+        // 1、简介
+        // 类的内部所有定义的方法，都是不可枚举的（non-enumerable）。
+        // es6
+        class Point {
+            constructor(x, y) {
+                // ...
+            }
+
+            toString() {
+                // ...
+            }
+        }
+
+        Object.keys(Point.prototype)
+        // []
+        Object.getOwnPropertyNames(Point.prototype)
+        // ["constructor","toString"]
+
+        // es5
+        // var Point = function (x, y) {
+        //     // ...
+        // };
+
+        // Point.prototype.toString = function() {
+        //     // ...
+        // };
+
+        // Object.keys(Point.prototype)
+        // // ["toString"]
+        // Object.getOwnPropertyNames(Point.prototype)
+        // // ["constructor","toString"]
+
+        // 类的属性名，可以采用表达式。
+        let methodName = 'getArea';
+
+        class Square {
+            constructor(length) {
+                // ...
+            }
+
+            [methodName]() {
+                // ...
+            }
+        }
+
+        // 总结
+        // 1、类的内部所有定义的方法，都是不可枚举的
+        // 2、类的属性名，可以采用表达式。
+    </script>
+</head>
+<body>
+    
+</body>
+</html>

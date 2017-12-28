@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script>
+        //Class 的基本语法
+        // 3、constructor 方法
+        class Foo {
+            constructor() {
+                return Object.create(null);
+            }
+        }
+
+        new Foo() instanceof Foo
+        // false
+        Foo()
+        // TypeError: Class constructor Foo cannot be invoked without 'new'
+
+
+
+
+
+
+        // 总结
+        // 1、constructor方法默认返回实例对象（即this），完全可以指定返回另外一个对象。
+        // 2、类必须使用new调用，否则会报错。这是它跟普通构造函数的一个主要区别，后者不用new也可以执行。
+    </script>
+</head>
+<body>
+    
+</body>
+</html>
