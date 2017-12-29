@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script>
+        // 原生构造函数的继承
+        // 原生构造函数是指语言内置的构造函数，通常用来生成数据结构。ECMAScript 的原生构造函数大致有下面这些。
+        // - Boolean()
+        // - Number()
+        // - String()
+        // - Array()
+        // - Date()
+        // - Function()
+        // - RegExp()
+        // - Error()
+        // - Object()
+
+        // 用来定制报错时的行为。
+        class ExtendableError extends Error {
+            constructor(message) {
+                super();
+                this.message = message;
+                this.stack = (new Error()).stack;
+                this.name = this.constructor.name;
+            }
+        }
+
+        class MyError extends ExtendableError {
+            constructor(m) {
+                super(m);
+            }
+        }
+
+        var myerror = new MyError('ll');
+        myerror.message // "ll"
+        myerror instanceof Error // true
+        myerror.name // "MyError"
+        myerror.stack
+        // Error
+        //     at MyError.ExtendableError
+        //     ...
+
+        class NewObj extends Object{
+            constructor(){
+                super(...arguments);
+            }
+        }
+        var o = new NewObj({attr: true});
+        o.attr === true  // false
+        
+        // 总结
+        // 1、ES6 可以自定义原生数据结构（比如Array、String等）的子类，这是 ES5 无法做到的。
+        // 2、extends关键字不仅可以用来继承类，还可以用来继承原生的构造函数
+        // 3、 ES6 改变了Object构造函数的行为，一旦发现Object方法不是通过new Object()这种形式调用，ES6 规定Object构造函数会忽略参数。
+        // 注意，继承Object的子类，有一个行为差异。
+    </script>
+</head>
+<body>
+    
+</body>
+</html>
